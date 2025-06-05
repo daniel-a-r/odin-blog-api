@@ -3,8 +3,8 @@ import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client.js';
 import { ExpressValidator, validationResult } from 'express-validator';
 
-const ACCESS_TOKEN_EXPIRES_IN = '30 minutes';
-const REFRESH_TOKEN_EXPIRES_IN = '7 days';
+const ACCESS_TOKEN_EXPIRES_IN = 60 * 5; // 60 seconds * 5 minutes
+const REFRESH_TOKEN_EXPIRES_IN = 60 * 60 * 24 * 7; // 60 seconds * 60 minutes * 24 hours * 7 days
 const COOKIE_OPTS = {
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 second * 60 seconds * 60 minutes * 24 hours * 7 days
   secure: true,
@@ -121,7 +121,8 @@ const refreshGet = (req, res) => {
 };
 
 const protectedGet = (req, res) => {
-  return res.json({ message: 'authenticated!', user: req.user });
+  const { username, role } = req.user;
+  return res.json({ user: { username, role } });
 };
 
 export default {
