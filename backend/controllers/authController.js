@@ -7,7 +7,7 @@ const ACCESS_TOKEN_EXPIRES_IN = 60 * 5; // 60 seconds * 5 minutes
 const REFRESH_TOKEN_EXPIRES_IN = 60 * 60 * 24 * 7; // 60 seconds * 60 minutes * 24 hours * 7 days
 const COOKIE_OPTS = {
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 second * 60 seconds * 60 minutes * 24 hours * 7 days
-  secure: true,
+  httpsOnly: true,
   signed: true,
 };
 
@@ -117,7 +117,8 @@ const loginPost = async (req, res) => {
 };
 
 const refreshGet = (req, res) => {
-  return 0;
+  console.log(req.signedCookies.refreshToken);
+  res.json({ accessToken: 'token' });
 };
 
 const protectedGet = (req, res) => {
@@ -128,5 +129,6 @@ const protectedGet = (req, res) => {
 export default {
   signUpPost,
   loginPost,
+  refreshGet,
   protectedGet,
 };
