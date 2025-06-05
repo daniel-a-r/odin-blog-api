@@ -3,6 +3,8 @@ import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client.js';
 import { ExpressValidator, validationResult } from 'express-validator';
 
+const ACCESS_TOKEN_EXPIRES_IN = '30m';
+
 const { body } = new ExpressValidator({
   isUsernameNotInUse: async (value) => {
     const existingUser = await prisma.user.findUnique({
@@ -54,7 +56,7 @@ const createUser = async (req, res) => {
     username: user.username,
     role: user.role,
   };
-  const opts = { expiresIn: '30m' };
+  const opts = { expiresIn: ACCESS_TOKEN_EXPIRES_IN };
   const token = jwt.sign(payload, process.env.JWT_SECRET, opts);
   res.json({
     token,
@@ -66,11 +68,15 @@ const signUpPost = [...validateSignUp, checkSignUpValidationErrors, createUser];
 const loginPost = (req, res) => {
   const { username, password } = req.body;
   const payload = { username };
-  const opts = { expiresIn: '30m' };
+  const opts = { expiresIn: ACCESS_TOKEN_EXPIRES_IN };
   const token = jwt.sign(payload, process.env.JWT_SECRET, opts);
   res.json({
     token,
   });
+};
+
+const refreshGet = (req, res) => {
+  return 0;
 };
 
 const protectedGet = (req, res) => {
