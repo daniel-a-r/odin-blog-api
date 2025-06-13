@@ -7,13 +7,13 @@ const PORT = process.env.PORT || 3000;
 app.use('/auth', authRouter);
 app.use('/post', postRouter);
 
-app.use((req, res) => {
+app.use((_req, res) => {
   res.status(404).json({
     message: 'Resource not found',
   });
 });
 
-app.use((err, req, res, next) => {
+app.use((err, _req, res, _next) => {
   console.error(err);
   const statusCode = err.status || 500;
   res.status(statusCode).json(err);
