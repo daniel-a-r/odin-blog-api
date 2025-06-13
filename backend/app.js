@@ -4,6 +4,7 @@ import authRouter from './routes/authRouter.js';
 const PORT = process.env.PORT || 3000;
 
 app.use('/auth', authRouter);
+
 app.use((req, res) => {
   res.status(404).json({
     message: 'Resource not found',
