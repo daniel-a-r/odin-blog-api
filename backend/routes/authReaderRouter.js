@@ -7,6 +7,5 @@ const router = new Router();
 router.post('/sign-up', controller.signUpPost);
 router.post('/login', controller.loginPost);
 router.get('/refresh', controller.refreshGet);
-router.get('/protected', passportJwtAuth, controller.protectedGet);
 
 export default router;
