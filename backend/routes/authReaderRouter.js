@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import controller from '../controllers/authController.js';
+import controller from '../controllers/authReaderController.js';
 import passportJwtAuth from '../config/passport.config.js';
 
 const router = new Router();

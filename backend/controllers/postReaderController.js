@@ -80,9 +80,6 @@ const postDelete = async (req, res) => {
 };
 
 export default {
-  createPost,
   allPostsGet,
   singlePostGet,
-  postUpdate,
-  postDelete,
 };
