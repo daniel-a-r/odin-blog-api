@@ -1,11 +1,13 @@
 import app from './config/app.config.js';
 import readerAuthRouter from './routes/authReaderRouter.js';
 import readerPostRouter from './routes/postReaderRouter.js';
+import authorPostRouter from './routes/postAuthorRouter.js';
 
 const PORT = process.env.PORT || 3000;
 
 app.use('/reader/auth', readerAuthRouter);
 app.use('/reader/post', readerPostRouter);
+app.use('/author/post', authorPostRouter);
 
 app.use((_req, res) => {
   res.status(404).json({
