@@ -1,9 +1,11 @@
 import app from './config/app.config.js';
 import authRouter from './routes/authRouter.js';
+import postRouter from './routes/postRouter.js';
 
 const PORT = process.env.PORT || 3000;
 
 app.use('/auth', authRouter);
+app.use('/post', postRouter);
 
 app.use((req, res) => {
   res.status(404).json({
