@@ -8,11 +8,11 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "format": "pnpm exec prettier . --write",
-    "serve": "pnpm dotenvx run -f .env.dev --verbose -- nodemon app.js",
-    "encrypt-dev": "pnpm dotenvx encrypt -f .env.dev",
-    "decrypt-dev": "pnpm dotenvx decrypt -f .env.dev",
-    "migrate": "npx dotenvx run -f .env.dev -- npx prisma migrate dev --name"
+    "format": "prettier --write",
+    "serve": "dotenvx run -f .env.dev --verbose -- nodemon app.js",
+    "encrypt-dev": "dotenvx encrypt -f .env.dev",
+    "decrypt-dev": "dotenvx decrypt -f .env.dev",
+    "migrate": "dotenvx run -f .env.dev -- npx prisma migrate dev --name"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.43.0",
