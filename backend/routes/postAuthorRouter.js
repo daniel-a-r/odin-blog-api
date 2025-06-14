@@ -4,7 +4,7 @@ import passportJwtAuth from '../config/passport.config.js';
 
 const router = new Router();
 
-router.use(passportJwtAuth);
+router.use(passportJwtAuth, controller.isAuthor);
 router.route('/').post(controller.createPost).get(controller.allPostsGet);
 router
   .route('/:id')

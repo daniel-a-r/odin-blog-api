@@ -1,14 +1,17 @@
 import prisma from '../prisma/client.js';
 
-// TODO: Add util function to check if user is 'AUTHOR' or not
+const isAuthor = (req, res, next) => {
+  const { user } = req;
+  if (user.role !== 'AUTHOR') {
+    res.status(403).json({ message: "not an 'AUTHOR'" });
+    return;
+  }
+  next();
+};
+
 const createPost = async (req, res) => {
   const { title, body } = req.body;
   const { user } = req;
-
-  if (user.role !== 'AUTHOR') {
-    res.status(403).json({ message: 'Not an AUTHOR' });
-    return;
-  }
 
   await prisma.post.create({
     data: {
@@ -82,6 +85,7 @@ const postDelete = async (req, res) => {
 };
 
 export default {
+  isAuthor,
   createPost,
   allPostsGet,
   singlePostGet,
