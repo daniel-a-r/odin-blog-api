@@ -1,5 +1,6 @@
 import prisma from '../prisma/client.js';
 
+// TODO: Add util function to check if user is 'AUTHOR' or not
 const createPost = async (req, res) => {
   const { title, body } = req.body;
   const { user } = req;
@@ -77,7 +78,7 @@ const postDelete = async (req, res) => {
     },
   });
 
-  res.json({ message: 'post deleted' });
+  res.json({ message: 'post deleted', id: params.id });
 };
 
 export default {
