@@ -1,5 +1,10 @@
 import prisma from '../prisma/client.js';
 
+/**
+ * Get all published posts from Authors for Readers
+ * @param {Request} _req Express request
+ * @param {Response} res Express response 
+ */
 const allPostsGet = async (_req, res) => {
   const posts = await prisma.post.findMany({
     where: {
@@ -10,6 +15,11 @@ const allPostsGet = async (_req, res) => {
   res.json(posts);
 };
 
+/**
+ * Get a single published post from an Author for
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
 const singlePostGet = async (req, res) => {
   try {
     const { params } = req;
