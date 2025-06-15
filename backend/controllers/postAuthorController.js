@@ -1,5 +1,12 @@
 import prisma from '../prisma/client.js';
 
+/**
+ * Checks if the current user has a role of author
+ * @param {Request} req  Express request
+ * @param {Response} res Express response
+ * @param {*} next next middleware function
+ * @returns {void}
+ */
 const isAuthor = (req, res, next) => {
   const { user } = req;
   if (user.role !== 'AUTHOR') {
@@ -9,6 +16,11 @@ const isAuthor = (req, res, next) => {
   next();
 };
 
+/**
+ * Create a post from an author
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
 const createPost = async (req, res) => {
   const { title, body } = req.body;
   const { user } = req;
@@ -24,6 +36,11 @@ const createPost = async (req, res) => {
   res.json({ message: 'post created' });
 };
 
+/**
+ * Get all unpublished and published posts for an Author
+ * @param {Request} req  Express request
+ * @param {Response} res Express response
+ */
 const allPostsGet = async (req, res) => {
   const { user } = req;
   const posts = await prisma.post.findMany({
@@ -35,6 +52,11 @@ const allPostsGet = async (req, res) => {
   res.json(posts);
 };
 
+/**
+ * Get a single post for an Author
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
 const singlePostGet = async (req, res) => {
   try {
     const { params, user } = req;
@@ -53,6 +75,11 @@ const singlePostGet = async (req, res) => {
   }
 };
 
+/**
+ * Update a single post for an Author
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
 const postUpdate = async (req, res) => {
   const { title, body } = req.body;
   const { user, params } = req;
@@ -71,6 +98,11 @@ const postUpdate = async (req, res) => {
   res.json({ message: 'post updated', id: params.id });
 };
 
+/**
+ * Delete a single post for an Author
+ * @param {Request} req Express request 
+ * @param {Response} res Express response
+ */
 const postDelete = async (req, res) => {
   const { user, params } = req;
 
