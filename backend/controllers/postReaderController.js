@@ -1,7 +1,7 @@
 import prisma from '../prisma/client.js';
 
 /**
- * Get all published posts from Authors for Readers
+ * Get all published posts from Authors for Reader user
  * @param {Request} _req Express request
  * @param {Response} res Express response 
  */
@@ -16,7 +16,7 @@ const allPostsGet = async (_req, res) => {
 };
 
 /**
- * Get a single published post from an Author for
+ * Get a single published post from an Author for Reader user
  * @param {Request} req Express request
  * @param {Response} res Express response
  */

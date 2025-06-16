@@ -11,12 +11,36 @@ const COOKIE_OPTS = {
   signed: true,
 };
 
+/**
+ * Create a new signed access token where the payload is an object as the following:
+ * ```json
+ * {
+ *    userID,
+ *    username,
+ *    role
+ * }
+ * ```
+ * @param {object} payload 
+ * @returns {string} json web token string
+ */
 const createAccessToken = (payload) => {
   return jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: ACCESS_TOKEN_EXPIRES_IN,
   });
 };
 
+/**
+ * Create a new signed refresh token where the payload is an object as the following:
+ * ```json
+ * {
+ *    userID,
+ *    username,
+ *    role
+ * }
+ * ```
+ * @param {object} payload 
+ * @returns {string} json web token string
+ */
 const createRefreshToken = (payload) => {
   return jwt.sign(payload, process.env.REFRESH_SECRET, {
     expiresIn: REFRESH_TOKEN_EXPIRES_IN,
@@ -52,6 +76,15 @@ const validateSignUp = [
   body('confirmPassword').passwordsMatch(),
 ];
 
+/**
+ * Checks if any errors occured when validating login.
+ * Returns if there are errors,
+ * moves onto next middleware function if not
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ * @param next Express next function
+ * @returns {void} void if there are errors
+ */
 const checkSignUpValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -60,6 +93,11 @@ const checkSignUpValidationErrors = (req, res, next) => {
   next();
 };
 
+/**
+ * Creates a new Reader user
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
 const createUser = async (req, res) => {
   const { username, password } = req.body;
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -85,6 +123,12 @@ const createUser = async (req, res) => {
 
 const signUpPost = [...validateSignUp, checkSignUpValidationErrors, createUser];
 
+/**
+ * If given valid login credentials, responds with a cookie to set the refresh token and json for the access token.
+ * Sends a 400 status code for invalid login
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
 const loginPost = async (req, res) => {
   const { username, password } = req.body;
 
