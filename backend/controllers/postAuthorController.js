@@ -17,7 +17,7 @@ const isAuthor = (req, res, next) => {
 };
 
 /**
- * Create a post from an author
+ * Create a post from an Author user
  * @param {Request} req Express request
  * @param {Response} res Express response
  */
@@ -37,7 +37,7 @@ const createPost = async (req, res) => {
 };
 
 /**
- * Get all unpublished and published posts for an Author
+ * Get all unpublished and published posts for an Author user
  * @param {Request} req  Express request
  * @param {Response} res Express response
  */
@@ -53,7 +53,7 @@ const allPostsGet = async (req, res) => {
 };
 
 /**
- * Get a single post for an Author
+ * Get a single post for an Author user
  * @param {Request} req Express request
  * @param {Response} res Express response
  */
@@ -76,7 +76,7 @@ const singlePostGet = async (req, res) => {
 };
 
 /**
- * Update a single post for an Author
+ * Update a single post for an Author user
  * @param {Request} req Express request
  * @param {Response} res Express response
  */
@@ -99,7 +99,7 @@ const postUpdate = async (req, res) => {
 };
 
 /**
- * Delete a single post for an Author
+ * Delete a single post for an Author user
  * @param {Request} req Express request 
  * @param {Response} res Express response
  */
