@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import prisma from '../prisma/client.js';
+import prisma from '../../prisma/client.js';
 import { ExpressValidator, validationResult } from 'express-validator';
 
 const ACCESS_TOKEN_EXPIRES_IN = 60 * 5; // 60 seconds * 5 minutes

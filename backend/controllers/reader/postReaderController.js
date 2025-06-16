@@ -1,4 +1,4 @@
-import prisma from '../prisma/client.js';
+import prisma from '../../prisma/client.js';
 
 /**
  * Get all published posts from Authors for Reader user

@@ -1,4 +1,4 @@
-import prisma from '../prisma/client.js';
+import prisma from '../../prisma/client.js';
 
 /**
  * Checks if the current user has a role of author

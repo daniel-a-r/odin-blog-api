@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import controller from '../controllers/postReaderController.js';
-import passportJwtAuth from '../config/passport.config.js';
+import controller from '../../controllers/reader/postReaderController.js';
+import passportJwtAuth from '../../config/passport.config.js';
 
 const router = new Router();
 
