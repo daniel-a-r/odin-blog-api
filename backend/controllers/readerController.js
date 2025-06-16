@@ -1,10 +1,48 @@
-import prisma from '../../prisma/client.js';
+import prisma from '../prisma/client.js';
+
+/**
+ * Get all published posts from Authors for Reader user
+ * @param {Request} _req Express request
+ * @param {Response} res Express response
+ */
+const allPostsGet = async (_req, res) => {
+  const posts = await prisma.post.findMany({
+    where: {
+      published: true,
+    },
+  });
+
+  res.json(posts);
+};
+
+/**
+ * Get a single published post from an Author for Reader user
+ * @param {Request} req Express request
+ * @param {Response} res Express response
+ */
+const singlePostGet = async (req, res) => {
+  try {
+    const { params } = req;
+
+    const post = await prisma.post.findUniqueOrThrow({
+      where: {
+        id: params.postId,
+        published: true,
+      },
+    });
+
+    res.json({ post });
+  } catch (error) {
+    console.error(error);
+    res.status(404).json({ message: 'post not found' });
+  }
+};
 
 /**
  * Create a comment on a published post.
  * Throws an error if the requested post is not published.
- * @param {Request} req Express request 
- * @param {Response} res Express response 
+ * @param {Request} req Express request
+ * @param {Response} res Express response
  */
 const commentPost = async (req, res) => {
   try {
@@ -38,7 +76,7 @@ const commentPost = async (req, res) => {
 
 /**
  * Get all comments on a published post.
- * @param {Request} req Express request 
+ * @param {Request} req Express request
  * @param {Response} res Express response
  */
 const allCommentsGet = async (req, res) => {
@@ -60,8 +98,8 @@ const allCommentsGet = async (req, res) => {
 
 /**
  * Delete a comment on a published post from the currently authenticated user.
- * @param {Request} req Express request 
- * @param {Response} res Express response 
+ * @param {Request} req Express request
+ * @param {Response} res Express response
  */
 const commentDelete = async (req, res) => {
   await prisma.comment.delete({
@@ -78,6 +116,8 @@ const commentDelete = async (req, res) => {
 };
 
 export default {
+  allPostsGet,
+  singlePostGet,
   commentPost,
   allCommentsGet,
   commentDelete,
