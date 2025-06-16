@@ -1,10 +1,9 @@
 import { Router } from 'express';
 import controller from '../../controllers/author/postAuthorController.js';
-import passportJwtAuth from '../../config/passport.config.js';
 
 const router = new Router();
 
-router.use(passportJwtAuth, controller.isAuthor);
+router.use(controller.isAuthor);
 router.route('/').post(controller.createPost).get(controller.allPostsGet);
 router
   .route('/:id')
