@@ -1,5 +1,11 @@
 import prisma from '../../prisma/client.js';
 
+/**
+ * Create a comment on a published post.
+ * Throws an error if the requested post is not published.
+ * @param {Request} req Express request 
+ * @param {Response} res Express response 
+ */
 const commentPost = async (req, res) => {
   try {
     const comment = await prisma.comment.create({
@@ -30,6 +36,11 @@ const commentPost = async (req, res) => {
   }
 };
 
+/**
+ * Get all comments on a published post.
+ * @param {Request} req Express request 
+ * @param {Response} res Express response
+ */
 const allCommentsGet = async (req, res) => {
   try {
     const allComments = await prisma.comment.findMany({
@@ -47,6 +58,11 @@ const allCommentsGet = async (req, res) => {
   }
 };
 
+/**
+ * Delete a comment on a published post from the currently authenticated user.
+ * @param {Request} req Express request 
+ * @param {Response} res Express response 
+ */
 const commentDelete = async (req, res) => {
   await prisma.comment.delete({
     where: {
