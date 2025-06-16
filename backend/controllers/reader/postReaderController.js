@@ -3,7 +3,7 @@ import prisma from '../../prisma/client.js';
 /**
  * Get all published posts from Authors for Reader user
  * @param {Request} _req Express request
- * @param {Response} res Express response 
+ * @param {Response} res Express response
  */
 const allPostsGet = async (_req, res) => {
   const posts = await prisma.post.findMany({

@@ -100,7 +100,7 @@ const postUpdate = async (req, res) => {
 
 /**
  * Delete a single post for an Author user
- * @param {Request} req Express request 
+ * @param {Request} req Express request
  * @param {Response} res Express response
  */
 const postDelete = async (req, res) => {

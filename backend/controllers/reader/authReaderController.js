@@ -20,7 +20,7 @@ const COOKIE_OPTS = {
  *    role
  * }
  * ```
- * @param {object} payload 
+ * @param {object} payload
  * @returns {string} json web token string
  */
 const createAccessToken = (payload) => {
@@ -38,7 +38,7 @@ const createAccessToken = (payload) => {
  *    role
  * }
  * ```
- * @param {object} payload 
+ * @param {object} payload
  * @returns {string} json web token string
  */
 const createRefreshToken = (payload) => {
