@@ -71,6 +71,7 @@ const commentDelete = async (req, res) => {
         published: true,
       },
       id: req.params.commentId,
+      commenterId: req.user.id,
     },
   });
   res.json({ message: 'comment deleted' });
