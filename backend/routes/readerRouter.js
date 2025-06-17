@@ -8,6 +8,10 @@ router.get('/', controller.allPostsGet);
 router.get('/:postId', controller.singlePostGet);
 router.post('/:postId/comment', passportJwtAuth, controller.commentPost);
 router.get('/:postId/comment', controller.allCommentsGet);
-router.delete('/:postId/comment/:commentId', passportJwtAuth, controller.commentDelete);
+router.delete(
+  '/:postId/comment/:commentId',
+  passportJwtAuth,
+  controller.commentDelete,
+);
 
 export default router;
