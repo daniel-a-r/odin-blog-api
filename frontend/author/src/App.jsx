@@ -1,37 +1,27 @@
 import axios from 'axios';
 import './App.css';
+import { LOGIN_ENDPOINT } from './utils.js';
 
 function App() {
-  const signUp = async (formData) => {
+  const login = async (formData) => {
     const body = {};
     body.username = formData.get('username');
     body.password = formData.get('password');
-    body.confirmPassword = formData.get('confirmPassword');
+    console.log(LOGIN_ENDPOINT);
 
-    if (body.password !== body.confirmPassword) {
-      return alert('passwords do not match');
-    }
-
-    const { data } = await axios.post('http://localhost:3000/sign-up', body);
+    const { data } = await axios.post(LOGIN_ENDPOINT, body);
     console.log(data);
   };
 
   return (
     <>
-      <h1>Sign Up</h1>
-      <form action={signUp}>
+      <h1>Login</h1>
+      <form action={login}>
         <label htmlFor='username'>Username:</label>
         <input type='text' name='username' id='username' required />
         <label htmlFor='password'>Password:</label>
         <input type='password' name='password' id='password' required />
-        <label htmlFor='confirm-password'>Confirm Passwowrd:</label>
-        <input
-          type='password'
-          name='confirmPassword'
-          id='confirm-password'
-          required
-        />
-        <button type='submit'>Sign Up</button>
+        <button type='submit'>Login</button>
       </form>
     </>
   );
