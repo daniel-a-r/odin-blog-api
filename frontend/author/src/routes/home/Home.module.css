@@ -40,7 +40,7 @@
   width: min-content;
   font-weight: 450;
   text-decoration: none;
-  background-color: oklch(62.3% 0.214 259.815);
+  background-color: hsl(216, 100%, 58%);
   padding: 0.5rem 1rem;
   border: none;
   border-radius: 0.25rem;
@@ -50,7 +50,7 @@
   font-size: 1rem;
   position: absolute;
   margin-top: 1rem;
-  color: oklch(63.7% 0.237 25.331);
+  color: hsl(357, 96%, 58%);
 }
 
 @media (width >= 32rem) {

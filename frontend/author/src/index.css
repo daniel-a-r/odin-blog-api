@@ -10,8 +10,8 @@
 }
 
 body {
-  background-color: oklch(27.9% 0.041 260.031);
-  color: oklch(92.8% 0.006 264.531);
+  background-color: hsl(218, 36%, 18%);
+  color: hsl(220, 13%, 91%);
   height: 100svh;
   padding: 1rem;
 }
