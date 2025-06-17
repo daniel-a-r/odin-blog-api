@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/author/post', passportJwtAuth, authorRouter);
-app.use('/api/v1/reader/post', passportJwtAuth, readerRouter);
+app.use('/api/v1/reader/post', readerRouter);
 
 app.use((_req, res) => {
   res.status(404).json({
