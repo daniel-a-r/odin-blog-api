@@ -9,7 +9,10 @@ export default defineConfig([
     plugins: { js },
     extends: ['js/recommended'],
     rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^ignore' },
+      ],
     },
   },
   { files: ['**/*.{js,mjs,cjs}'], languageOptions: { globals: globals.node } },
