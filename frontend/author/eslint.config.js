@@ -1,6 +1,6 @@
 import js from '@eslint/js';
 import globals from 'globals';
-import reactPlugin from 'eslint-plugin-react';
+import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
@@ -12,16 +12,26 @@ export default defineConfig([
   globalIgnores(['dist/']),
   {
     files: ['**/*.{js,jsx}'],
-    plugins: { js },
-    extends: ['js/recommended'],
-    languageOptions: { globals: globals.browser },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+    plugins: { js, react, reactHooks, reactRefresh },
+    extends: [
+      'js/recommended',
+      react.configs.flat.recommended,
+      react.configs.flat['jsx-runtime'],
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.vite,
+    ],
+    languageOptions: {
+      globals: globals.browser,
+    },
     rules: {
-      'no-unused-vars': ['warn', { varsIgnorePattern: '^[A-Z_]' }],
+      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
     },
   },
-  reactPlugin.configs.flat['jsx-runtime'],
-  reactHooks.configs['recommended-latest'],
-  reactRefresh.configs.vite,
   {
     files: ['**/*.json'],
     plugins: { json },
