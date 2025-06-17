@@ -6,10 +6,10 @@ import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import json from '@eslint/json';
 import css from '@eslint/css';
-import { defineConfig, globalIgnores } from 'eslint/config';
+import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
-  globalIgnores(['dist/']),
+  { ignores: ['dist'] },
   {
     files: ['**/*.{js,jsx}'],
     settings: {
