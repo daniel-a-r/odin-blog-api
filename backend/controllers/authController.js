@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt, { decode } from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client.js';
 import { ExpressValidator, validationResult } from 'express-validator';
@@ -196,8 +196,20 @@ const loginPost = [findUser, validateRole, loginRes];
  * @param {Response} res Express response
  */
 const refreshGet = (req, res) => {
-  console.log(req.signedCookies.refreshToken);
-  res.json({ accessToken: 'token' });
+  const { refreshToken } = req.signedCookies;
+  try {
+    const decoded = jwt.verify(refreshToken, process.env.REFRESH_SECRET);
+    const payload = {
+      id: decoded.id,
+      username: decoded.username,
+      role: decoded.role,
+    };
+    const accessToken = createAccessToken(payload);
+    console.log(payload);
+    res.json({ accessToken });
+  } catch (ignoreError) {
+    res.status(401).json({ message: 'login required' });
+  }
 };
 
 export default { signUpPost, loginPost, refreshGet };
