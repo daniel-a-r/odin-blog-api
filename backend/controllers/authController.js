@@ -7,6 +7,7 @@ const ACCESS_TOKEN_EXPIRES_IN = 60 * 5; // 60 seconds * 5 minutes
 const REFRESH_TOKEN_EXPIRES_IN = 60 * 60 * 24 * 7; // 60 seconds * 60 minutes * 24 hours * 7 days
 const COOKIE_OPTS = {
   maxAge: 1000 * 60 * 60 * 24 * 7, // 1 second * 60 seconds * 60 minutes * 24 hours * 7 days
+  httpOnly: true,
   secure: true,
   signed: true,
 };
