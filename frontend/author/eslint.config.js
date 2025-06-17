@@ -3,12 +3,13 @@ import globals from 'globals';
 import reactPlugin from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import json from '@eslint/json';
 import css from '@eslint/css';
-import { defineConfig } from 'eslint/config';
+import { defineConfig, globalIgnores } from 'eslint/config';
 
 export default defineConfig([
-  { ignores: ['dist'] },
+  globalIgnores(['dist/']),
   {
     files: ['**/*.{js,jsx}'],
     plugins: { js },
@@ -33,4 +34,5 @@ export default defineConfig([
     language: 'css/css',
     extends: ['css/recommended'],
   },
+  eslintPluginPrettierRecommended,
 ]);
