@@ -1,4 +1,4 @@
-import jwt, { decode } from 'jsonwebtoken';
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import prisma from '../prisma/client.js';
 import { ExpressValidator, validationResult } from 'express-validator';
