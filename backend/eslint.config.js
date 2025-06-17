@@ -1,6 +1,7 @@
 import js from '@eslint/js';
 import globals from 'globals';
 import json from '@eslint/json';
+import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
@@ -22,4 +23,5 @@ export default defineConfig([
     language: 'json/json',
     extends: ['json/recommended'],
   },
+  eslintPluginPrettierRecommended,
 ]);
