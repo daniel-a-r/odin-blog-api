@@ -12,6 +12,10 @@ const COOKIE_OPTS = {
   signed: true,
 };
 
+if (process.env.NODE_ENV === 'PROD') {
+  COOKIE_OPTS.domain = 'tbd';
+}
+
 /**
  * Create a new signed access token where the payload is an object as the following:
  * ```json
@@ -153,8 +157,7 @@ const findUser = async (req, res, next) => {
     };
 
     next();
-  } catch (error) {
-    console.error(error);
+  } catch (ignoreError) {
     res.status(400).json({ message: 'invalid username or password' });
   }
 };
@@ -171,8 +174,7 @@ const validateRole = (req, res, next) => {
       throw new Error('Incorrect role');
     }
     next();
-  } catch (error) {
-    console.error(error);
+  } catch (ignoreError) {
     res.status(403).json({ message: 'Incorrect permission' });
   }
 };
@@ -205,7 +207,6 @@ const refreshGet = (req, res) => {
       role: decoded.role,
     };
     const accessToken = createAccessToken(payload);
-    console.log(payload);
     res.json({ accessToken });
   } catch (ignoreError) {
     res.status(401).json({ message: 'login required' });

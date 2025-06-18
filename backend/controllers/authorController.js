@@ -69,8 +69,7 @@ const singlePostGet = async (req, res) => {
     });
 
     res.json({ post });
-  } catch (error) {
-    console.error(error);
+  } catch (ignoreError) {
     res.status(404).json({ message: 'post not found' });
   }
 };

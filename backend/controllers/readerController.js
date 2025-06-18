@@ -32,8 +32,7 @@ const singlePostGet = async (req, res) => {
     });
 
     res.json({ post });
-  } catch (error) {
-    console.error(error);
+  } catch (ignoreError) {
     res.status(404).json({ message: 'post not found' });
   }
 };
@@ -68,8 +67,7 @@ const commentPost = async (req, res) => {
     }
 
     res.json(comment);
-  } catch (error) {
-    console.error(error);
+  } catch (ignoreError) {
     res.status(404).json({ message: 'post not found' });
   }
 };
@@ -90,8 +88,7 @@ const allCommentsGet = async (req, res) => {
       },
     });
     req.json(allComments);
-  } catch (error) {
-    console.error(error);
+  } catch (ignoreError) {
     res.status(400);
   }
 };
