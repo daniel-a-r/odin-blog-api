@@ -13,11 +13,13 @@ const Home = () => {
     body.username = formData.get('username');
     body.password = formData.get('password');
     try {
-      const { data } = await axios.post(LOGIN_ENDPOINT, body);
+      const { data } = await axios.post(LOGIN_ENDPOINT, body, {
+        withCredentials: true,
+      });
       localStorage.setItem('accessToken', data.accessToken);
       navigate('/dashboard');
     } catch (error) {
-      console.error(error.response.data.message);
+      console.log(error.response.data.message);
       setInvalidLogin(true);
     }
   };

@@ -1,10 +1,7 @@
-import axios from 'axios';
+import { authInterceptor } from './utils/axios';
 import { POST_ENDPOINT } from './utils';
 
 export const dashboardLoader = async () => {
-  const accessToken = localStorage.getItem('accessToken');
-  const data = await axios.get(POST_ENDPOINT, {
-    headers: { Authorization: `Bearer ${accessToken}` },
-  });
-  return data;
+  const interceptorData = authInterceptor.get(POST_ENDPOINT);
+  return interceptorData;
 };
