@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { baseURL } from '../utils.js';
+import { baseURL } from '@/utils/utils';
 
 const authInterceptor = axios.create({
   baseURL: baseURL,
@@ -7,6 +7,7 @@ const authInterceptor = axios.create({
 
 authInterceptor.interceptors.request.use(
   (config) => {
+    console.log('requst interceptor');
     const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken === null) {
@@ -27,6 +28,7 @@ authInterceptor.interceptors.response.use(
     return config;
   },
   async (error) => {
+    console.log('response interceptor');
     try {
       const originalConfig = error.config;
       if (error.response.status === 401) {

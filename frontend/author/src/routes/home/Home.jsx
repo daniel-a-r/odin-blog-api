@@ -1,12 +1,14 @@
 import { useNavigate } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import styles from './Home.module.css';
 import axios from 'axios';
-import { LOGIN_ENDPOINT } from '../../utils.js';
+import { LOGIN_ENDPOINT } from '@/utils/utils.js';
+import { UserContext } from '@/app/UserContext';
 
 const Home = () => {
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
+  const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
 
   const login = async (formData) => {
     const body = {};
@@ -23,6 +25,22 @@ const Home = () => {
       setInvalidLogin(true);
     }
   };
+
+  useEffect(() => {
+    setUserLoggedIn(true);
+    console.log(userLoggedIn);
+  });
+
+  // useEffect(() => {
+  //   const token = localStorage.getItem('accessToken');
+  //   console.log(token);
+  //   if (token) {
+  //     navigate('/dashboard');
+  //   }
+  //   // if (localStorage.getItem('accessToken')) {
+  //   //   navigate('/dashboard');
+  //   // }
+  // }, []);
 
   return (
     <div className={styles.container}>
