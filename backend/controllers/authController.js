@@ -213,4 +213,19 @@ const refreshGet = (req, res) => {
   }
 };
 
-export default { signUpPost, loginPost, refreshGet };
+const validateGet = (_req, res) => {
+  res.json({ user: 'valid' });
+};
+
+const logoutGet = (req, res) => {
+  const { refreshToken } = req.signedCookies;
+  if (refreshToken) {
+    res
+      .clearCookie('refreshToken', COOKIE_OPTS)
+      .json({ message: 'logged out' });
+  } else {
+    res.json({ message: 'already logged out' });
+  }
+};
+
+export default { signUpPost, loginPost, refreshGet, validateGet, logoutGet };
