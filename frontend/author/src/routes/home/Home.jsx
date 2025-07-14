@@ -1,14 +1,14 @@
 import { useNavigate } from 'react-router';
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Home.module.css';
-import axios from 'axios';
+import axios from '@/utils/axios';
 import { LOGIN_ENDPOINT } from '@/utils/utils.js';
-import { UserContext } from '@/app/UserContext';
+import { VALIDATE_ENDPOINT } from '@/utils/utils.js';
+import { authInterceptor } from '@/utils/axios.js';
 
 const Home = () => {
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
-  const { userLoggedIn, setUserLoggedIn } = useContext(UserContext);
 
   const login = async (formData) => {
     const body = {};
@@ -19,7 +19,7 @@ const Home = () => {
         withCredentials: true,
       });
       localStorage.setItem('accessToken', data.accessToken);
-      navigate('/dashboard');
+      return navigate('/dashboard');
     } catch (error) {
       console.log(error.response.data.message);
       setInvalidLogin(true);
@@ -27,20 +27,23 @@ const Home = () => {
   };
 
   useEffect(() => {
-    setUserLoggedIn(true);
-    console.log(userLoggedIn);
-  });
+    const getInterceptorResponse = async () => {
+      try {
+        const interceptorResponse =
+          await authInterceptor.get(VALIDATE_ENDPOINT);
+        if (interceptorResponse.status == 200) {
+          navigate('/dashboard');
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
 
-  // useEffect(() => {
-  //   const token = localStorage.getItem('accessToken');
-  //   console.log(token);
-  //   if (token) {
-  //     navigate('/dashboard');
-  //   }
-  //   // if (localStorage.getItem('accessToken')) {
-  //   //   navigate('/dashboard');
-  //   // }
-  // }, []);
+    const token = localStorage.getItem('accessToken');
+    if (token) {
+      getInterceptorResponse();
+    }
+  }, [navigate]);
 
   return (
     <div className={styles.container}>
