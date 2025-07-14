@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { baseURL } from '@/utils/utils';
 
+const instance = axios.create({
+  baseURL: baseURL,
+});
+
 const authInterceptor = axios.create({
   baseURL: baseURL,
 });
 
 authInterceptor.interceptors.request.use(
   (config) => {
-    console.log('requst interceptor');
+    console.log('request interceptor');
     const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken === null) {
@@ -42,9 +46,11 @@ authInterceptor.interceptors.response.use(
       }
     } catch (error) {
       console.log(error);
+      localStorage.removeItem('accessToken');
       return Promise.reject(error);
     }
   },
 );
 
 export { authInterceptor };
+export default instance;
