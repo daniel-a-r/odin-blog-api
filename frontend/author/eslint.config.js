@@ -43,6 +43,9 @@ export default defineConfig([
     plugins: { css },
     language: 'css/css',
     extends: ['css/recommended'],
+    rules: {
+      'css/use-baseline': ['warn', { available: 'newly' }],
+    },
   },
   eslintPluginPrettierRecommended,
 ]);
