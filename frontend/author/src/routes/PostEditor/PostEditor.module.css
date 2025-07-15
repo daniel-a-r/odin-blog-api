@@ -1,0 +1,19 @@
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.link {
+  background-color: inherit;
+  border: 0.125rem solid oklch(44.6% 0.043 257.281);
+  border-radius: 0.5rem;
+  color: inherit;
+  display: flex;
+  padding: 0.125rem;
+  transition: background-color 200ms;
+
+  &:hover {
+    background-color: oklch(20.8% 0.042 265.755);
+  }
+}

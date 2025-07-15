@@ -1,6 +1,6 @@
 import Home from '@/routes/home/Home.jsx';
 import Dashboard from '@/routes/dashboard/Dashboard.jsx';
-import AuthorPost from '@/routes/AuthorPost/AuthorPost';
+import PostEditor from '@/routes/PostEditor/PostEditor';
 import { dashboardLoader } from '@/loaders.js';
 import ErrorRedirect from '@/components/ErrorRedirect.jsx';
 
@@ -12,7 +12,7 @@ const routes = [
     loader: dashboardLoader,
     ErrorBoundary: ErrorRedirect,
   },
-  { path: '/dashboard/:postId', Component: AuthorPost },
+  { path: '/dashboard/:postId', Component: PostEditor },
 ];
 
 export default routes;
