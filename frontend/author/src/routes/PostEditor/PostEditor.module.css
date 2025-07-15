@@ -1,7 +1,16 @@
+.container {
+  padding: 1rem;
+}
+
 .header {
   display: flex;
   align-items: center;
   gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fieldName {
+  font-size: 1.375rem;
 }
 
 .link {
@@ -16,4 +25,34 @@
   &:hover {
     background-color: oklch(20.8% 0.042 265.755);
   }
+}
+
+.form {
+  /* display: grid;
+  grid-template-columns: min-content 1fr max-content;
+  grid-template-rows: auto min-content;
+  grid-template-areas: 
+    "fieldName . editButton"
+    "field field field";
+  row-gap: 1rem; */
+}
+
+.fieldName {
+  /* grid-area: fieldName; */
+  align-self: center;
+}
+
+.titleText {
+  /* grid-area: field; */
+  background-color: inherit;
+  border-radius: 0.5rem;
+  border: 0.125rem solid oklch(44.6% 0.043 257.281);
+  padding: 0.125rem 0.375rem;
+  line-height: 1.5;
+}
+
+.bodyText {
+  background-color: inherit;
+  border-radius: 0.5rem;
+  border: 0.125rem solid oklch(44.6% 0.043 257.281);
 }

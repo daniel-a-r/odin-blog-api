@@ -16,7 +16,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <>
       <header className={styles.header}>
         <h1>Posts</h1>
         <button onClick={handleLogout}>Logout</button>
@@ -38,7 +38,7 @@ const Dashboard = () => {
           </Link>
         ))}
       </ul>
-    </div>
+    </>
   );
 };
 
