@@ -14,7 +14,7 @@ const Home = () => {
       username: formData.get('username'),
       password: formData.get('password'),
     };
-    
+
     try {
       const { data } = await axios.post(LOGIN_ENDPOINT, body, {
         withCredentials: true,
