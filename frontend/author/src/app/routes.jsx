@@ -1,11 +1,15 @@
 import Home from '@/routes/home/Home.jsx';
 import Dashboard from '@/routes/dashboard/Dashboard.jsx';
-import PostEditor from '@/routes/PostEditor/PostEditor';
-import { dashboardLoader } from '@/loaders.js';
+import PostEditor from '@/routes/postEditor/PostEditor';
 import ErrorRedirect from '@/components/ErrorRedirect.jsx';
+import { validateLoginStatusLoader, dashboardLoader } from '@/utils/loaders.js';
 
 const routes = [
-  { index: true, Component: Home },
+  {
+    path: '/',
+    Component: Home,
+    loader: validateLoginStatusLoader,
+  },
   {
     path: '/dashboard',
     Component: Dashboard,
