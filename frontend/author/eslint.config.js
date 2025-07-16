@@ -29,7 +29,10 @@ export default defineConfig([
       globals: globals.browser,
     },
     rules: {
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
+      'no-unused-vars': [
+        'warn',
+        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^ignore' },
+      ],
     },
   },
   {
