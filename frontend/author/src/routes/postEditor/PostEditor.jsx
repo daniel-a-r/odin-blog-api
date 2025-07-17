@@ -66,15 +66,19 @@ const PostEditor = () => {
             id={bodyId}
             defaultValue={body}
             className={styles.bodyText}
+            rows='15'
           ></textarea>
         </div>
-        <label htmlFor={isPublishedId}>Published:</label>
-        <input
-          id={isPublishedId}
-          type='checkbox'
-          name='published'
-          defaultChecked={isPublished}
-        />
+        <div className={styles.checkboxContainer}>
+          <label htmlFor={isPublishedId}>Published:</label>
+          <input
+            id={isPublishedId}
+            type='checkbox'
+            name='published'
+            defaultChecked={isPublished}
+            className={styles.checkbox}
+          />
+        </div>
         <p>Updated: {formatDate(updatedAt)}</p>
         <p>Created: {formatDate(data.createdAt)}</p>
         <p>id: {data.id}</p>

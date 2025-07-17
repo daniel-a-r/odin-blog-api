@@ -28,28 +28,37 @@
 }
 
 .form {
-  /* display: grid;
-  grid-template-columns: min-content 1fr max-content;
-  grid-template-rows: auto min-content;
-  grid-template-areas: 
-    "fieldName . editButton"
-    "field field field";
-  row-gap: 1rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
 
-.fieldName {
-  /* grid-area: fieldName; */
-  align-self: center;
+.titleContainer,
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.checkbox {
+  transform: scale(1.25);
 }
 
 .titleText {
-  /* grid-area: field; */
   background-color: inherit;
   border-radius: 0.5rem;
   border: 0.125rem solid oklch(44.6% 0.043 257.281);
   color: inherit;
   padding: 0.125rem 0.375rem;
   line-height: 1.5;
+  width: 100%;
 }
 
 .bodyText {
@@ -57,4 +66,8 @@
   border-radius: 0.5rem;
   border: 0.125rem solid oklch(44.6% 0.043 257.281);
   color: inherit;
+  padding: 0.125rem 0.375rem;
+  line-height: 1.25;
+  width: 100%;
+  resize: vertical;
 }
