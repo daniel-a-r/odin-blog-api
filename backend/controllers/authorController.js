@@ -80,10 +80,10 @@ const singlePostGet = async (req, res) => {
  * @param {Response} res Express response
  */
 const postUpdate = async (req, res) => {
-  const { title, body } = req.body;
+  const { title, body, published } = req.body;
   const { user, params } = req;
 
-  await prisma.post.update({
+  const data = await prisma.post.update({
     where: {
       id: params.id,
       authorId: user.id,
@@ -91,10 +91,11 @@ const postUpdate = async (req, res) => {
     data: {
       title,
       body,
+      published,
     },
   });
 
-  res.json({ message: 'post updated', id: params.id });
+  res.json({ message: 'post sucessfully updated', post: data });
 };
 
 /**
