@@ -1,32 +1,39 @@
 import styles from './PostEditor.module.css';
 import { useState, useId } from 'react';
-import { useLocation, Link, Form } from 'react-router';
+import { useLoaderData, Link } from 'react-router';
 import Icon from '@mdi/react';
-import { mdiArrowLeft, mdiPencil } from '@mdi/js';
-import { formatDate } from '@/utils/utils';
+import { mdiArrowLeft } from '@mdi/js';
+import { formatDate, POST_ENDPOINT } from '@/utils/utils';
+import { authInterceptor } from '@/utils/axios';
 
 const PostEditor = () => {
-  const { state } = useLocation();
-  const [title, setTitle] = useState(state.title);
+  const data = useLoaderData();
+  const [title, setTitle] = useState(data.title);
+  const [body, setBody] = useState(data.body);
+  const [isPublished, setIsPublished] = useState(data.published);
+  const [updatedAt, setUpdatedAt] = useState(data.updatedAt);
   const titleId = useId();
-  const [body, setBody] = useState(state.body);
   const bodyId = useId();
-  const [isPublished, setIsPublished] = useState(state.published);
   const isPublishedId = useId();
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const updatePost = (formData) => {
-    console.log('form submit');
-    console.log(formData);
-    const body = {
+  const updatePost = async (formData) => {
+    const requestData = {
       title: formData.get('title'),
       body: formData.get('body'),
-      published: formData.get('published') ? true : false,
+      published: Boolean(formData.get('published')),
     };
-    console.log(body);
+
+    try {
+      const path = `${POST_ENDPOINT}${data.id}`;
+      const response = await authInterceptor.put(path, requestData);
+      const { post } = response.data;
+      setTitle(post.title);
+      setBody(post.body);
+      setIsPublished(post.published);
+      setUpdatedAt(post.updatedAt);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
@@ -47,7 +54,6 @@ const PostEditor = () => {
             name='title'
             type='text'
             defaultValue={title}
-            // onChange={handleTitleChange}
             className={styles.titleText}
           />
         </div>
@@ -69,9 +75,9 @@ const PostEditor = () => {
           name='published'
           defaultChecked={isPublished}
         />
-        <p>Updated: {formatDate(state.updatedAt)}</p>
-        <p>Created: {formatDate(state.createdAt)}</p>
-        <p>id: {state.id}</p>
+        <p>Updated: {formatDate(updatedAt)}</p>
+        <p>Created: {formatDate(data.createdAt)}</p>
+        <p>id: {data.id}</p>
         <button type='submit'>Save</button>
       </form>
     </>

@@ -2,7 +2,11 @@ import Home from '@/routes/home/Home.jsx';
 import Dashboard from '@/routes/dashboard/Dashboard.jsx';
 import PostEditor from '@/routes/postEditor/PostEditor';
 import ErrorRedirect from '@/components/ErrorRedirect.jsx';
-import { validateLoginStatusLoader, dashboardLoader } from '@/utils/loaders.js';
+import {
+  validateLoginStatusLoader,
+  dashboardLoader,
+  postEditorLoader,
+} from '@/utils/loaders.js';
 
 const routes = [
   {
@@ -16,7 +20,11 @@ const routes = [
     loader: dashboardLoader,
     ErrorBoundary: ErrorRedirect,
   },
-  { path: '/dashboard/:postId', Component: PostEditor },
+  {
+    path: '/dashboard/:postId',
+    Component: PostEditor,
+    loader: postEditorLoader,
+  },
 ];
 
 export default routes;

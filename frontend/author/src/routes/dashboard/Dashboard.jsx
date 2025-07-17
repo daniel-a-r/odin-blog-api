@@ -26,7 +26,6 @@ const Dashboard = () => {
           <Link
             to={`/dashboard/${post.id}`}
             key={post.id}
-            state={post}
             className={styles.link}
           >
             <li className={styles.li}>
