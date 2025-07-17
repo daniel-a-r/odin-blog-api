@@ -11,7 +11,6 @@ const authInterceptor = axios.create({
 
 authInterceptor.interceptors.request.use(
   (config) => {
-    console.log('request interceptor');
     const accessToken = localStorage.getItem('accessToken');
 
     if (accessToken === null) {
@@ -32,7 +31,6 @@ authInterceptor.interceptors.response.use(
     return config;
   },
   async (error) => {
-    console.log('response interceptor');
     try {
       const originalConfig = error.config;
       if (error.response.status === 401) {
@@ -42,6 +40,7 @@ authInterceptor.interceptors.response.use(
         const { accessToken } = response.data;
         localStorage.setItem('accessToken', accessToken);
         originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+        console.log('retrying request with refresh token');
         return axios(originalConfig);
       }
     } catch (error) {
