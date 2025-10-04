@@ -13,6 +13,7 @@ const Home = () => {
     const body = {
       username: formData.get('username'),
       password: formData.get('password'),
+      role: 'AUTHOR',
     };
 
     try {
