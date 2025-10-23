@@ -4,10 +4,10 @@ import pluginReact from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
-import css from '@eslint/css';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
+  { ignores: ['dist', 'src/components/ui'] },
   {
     files: ['**/*.{js,mjs,cjs,jsx}'],
     plugins: { js },
@@ -27,15 +27,13 @@ export default defineConfig([
     rules: {
       'no-unused-vars': [
         'warn',
-        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^ignore' },
+        {
+          argsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^_',
+        },
       ],
     },
-  },
-  {
-    files: ['**/*.css'],
-    plugins: { css },
-    language: 'css/css',
-    extends: ['css/recommended'],
   },
   eslintPluginPrettierRecommended,
 ]);
