@@ -8,6 +8,6 @@ const app = express();
 app.use(helemt());
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
-app.use(morgan('dev'));
+app.use(process.env.NODE_ENV === 'DEV' ? morgan('dev') : morgan('combined'));
 
 export default app;
