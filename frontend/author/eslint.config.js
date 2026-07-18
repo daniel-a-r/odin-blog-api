@@ -31,8 +31,13 @@ export default defineConfig([
     rules: {
       'no-unused-vars': [
         'warn',
-        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^ignore' },
+        {
+          argsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^ignore',
+          destructuredArrayIgnorePattern: '^_',
+        },
       ],
+      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   {
