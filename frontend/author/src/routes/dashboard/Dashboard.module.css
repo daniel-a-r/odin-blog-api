@@ -1,8 +1,15 @@
+.buttonsNav {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 1rem;
   margin-bottom: 1rem;
+  width: 100%;
 }
 
 .ul {
@@ -14,6 +21,23 @@
 .link {
   color: inherit;
   text-decoration: none;
+}
+
+.linkButton {
+  color: white;
+  height: min-content;
+  width: auto;
+  font-weight: 450;
+  background-color: oklch(54.6% 0.245 262.881);
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  transition: background-color 200ms;
+
+  &:hover {
+    background-color: oklch(48.8% 0.243 264.376);
+  }
 }
 
 .li {

@@ -19,10 +19,12 @@ const Dashboard = () => {
     <>
       <header className={styles.header}>
         <h1>Posts</h1>
-        <Link to={`/dashboard/create`} className={styles.link}>
-          Create Post
-        </Link>
-        <button onClick={handleLogout}>Logout</button>
+        <div className={styles.buttonsNav}>
+          <Link to={`/dashboard/create`} className={styles.linkButton}>
+            Create Post
+          </Link>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
       </header>
       <ul className={styles.ul}>
         {data.map((post) => (
