@@ -37,7 +37,6 @@ export default defineConfig([
           destructuredArrayIgnorePattern: '^_',
         },
       ],
-      '@typescript-eslint/no-unused-vars': 'off',
     },
   },
   {
