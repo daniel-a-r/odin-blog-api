@@ -19,6 +19,9 @@ const Dashboard = () => {
     <>
       <header className={styles.header}>
         <h1>Posts</h1>
+        <Link to={`/dashboard/create`} className={styles.link}>
+          Create Post
+        </Link>
         <button onClick={handleLogout}>Logout</button>
       </header>
       <ul className={styles.ul}>

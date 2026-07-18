@@ -1,0 +1,73 @@
+.container {
+  padding: 1rem;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.fieldName {
+  font-size: 1.375rem;
+}
+
+.link {
+  background-color: inherit;
+  border: 0.125rem solid oklch(44.6% 0.043 257.281);
+  border-radius: 0.5rem;
+  color: inherit;
+  display: flex;
+  padding: 0.125rem;
+  transition: background-color 200ms;
+
+  &:hover {
+    background-color: oklch(20.8% 0.042 265.755);
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.titleContainer,
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  gap: 0.5rem;
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.checkbox {
+  transform: scale(1.25);
+}
+
+.titleText {
+  background-color: inherit;
+  border-radius: 0.5rem;
+  border: 0.125rem solid oklch(44.6% 0.043 257.281);
+  color: inherit;
+  padding: 0.125rem 0.375rem;
+  line-height: 1.5;
+  width: 100%;
+}
+
+.bodyText {
+  background-color: inherit;
+  border-radius: 0.5rem;
+  border: 0.125rem solid oklch(44.6% 0.043 257.281);
+  color: inherit;
+  padding: 0.125rem 0.375rem;
+  line-height: 1.25;
+  width: 100%;
+  resize: vertical;
+}

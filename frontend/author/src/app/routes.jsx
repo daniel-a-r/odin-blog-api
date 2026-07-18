@@ -7,6 +7,7 @@ import {
   dashboardLoader,
   postEditorLoader,
 } from '@/utils/loaders.js';
+import PostCreator from '@/routes/postCreator/PostCreator';
 
 const routes = [
   {
@@ -24,6 +25,10 @@ const routes = [
     path: '/dashboard/:postId',
     Component: PostEditor,
     loader: postEditorLoader,
+  },
+  {
+    path: '/dashboard/create',
+    Component: PostCreator,
   },
 ];
 
