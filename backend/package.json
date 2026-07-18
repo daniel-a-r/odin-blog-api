@@ -13,7 +13,8 @@
     "serve": "dotenvx run -f .env.dev --verbose -- nodemon app.js",
     "encrypt-dev": "dotenvx encrypt -f .env.dev",
     "decrypt-dev": "dotenvx decrypt -f .env.dev",
-    "migrate": "dotenvx run -f .env.dev -- npx prisma migrate dev --name"
+    "migrate": "dotenvx run -f .env.dev -- npx prisma migrate dev --name",
+    "prepare": "cd .. && husky backend/.husky"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.43.0",
@@ -36,6 +37,7 @@
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.5.0",
     "globals": "^16.1.0",
+    "husky": "^9.1.7",
     "nodemon": "^3.1.10",
     "prettier": "3.5.3",
     "prisma": "^6.7.0"
