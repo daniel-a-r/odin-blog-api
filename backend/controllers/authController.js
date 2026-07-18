@@ -158,7 +158,7 @@ const findUser = async (req, res, next) => {
 
     next();
   } catch (ignoreError) {
-    res.status(400).json({ message: 'invalid username or password' });
+    res.status(401).json({ message: 'invalid username or password' });
   }
 };
 
