@@ -22,13 +22,14 @@ const isAuthor = (req, res, next) => {
  * @param {Response} res Express response
  */
 const createPost = async (req, res) => {
-  const { title, body } = req.body;
+  const { title, body, published } = req.body;
   const { user } = req;
 
   await prisma.post.create({
     data: {
       title,
       body,
+      published,
       authorId: user.id,
     },
   });
