@@ -1,0 +1,4 @@
+{
+  "*.{js, json}": ["eslint --fix", "prettier --write"],
+  "!(*.{js, json})": "prettier --write --ignore-unknown"
+}
