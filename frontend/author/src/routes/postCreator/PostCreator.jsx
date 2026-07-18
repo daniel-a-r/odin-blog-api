@@ -1,5 +1,5 @@
 import styles from './PostCreator.module.css';
-import { useState, useId } from 'react';
+import { useId } from 'react';
 import { Link } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
@@ -7,10 +7,6 @@ import { POST_ENDPOINT } from '@/utils/utils';
 import { authInterceptor } from '@/utils/axios';
 
 const PostCreator = () => {
-  const [title, setTitle] = useState();
-  const [body, setBody] = useState();
-  const [isPublished, setIsPublished] = useState(false);
-  const [updatedAt, setUpdatedAt] = useState();
   const titleId = useId();
   const bodyId = useId();
   const isPublishedId = useId();
@@ -71,7 +67,7 @@ const PostCreator = () => {
             id={isPublishedId}
             type='checkbox'
             name='published'
-            defaultChecked={isPublished}
+            defaultChecked={false}
             className={styles.checkbox}
           />
         </div>
