@@ -1,0 +1,2 @@
+cd frontend/author
+pnpm lint-staged
