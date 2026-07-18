@@ -3,7 +3,7 @@ import { useState, useId } from 'react';
 import { Link } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
-import { formatDate, POST_ENDPOINT } from '@/utils/utils';
+import { POST_ENDPOINT } from '@/utils/utils';
 import { authInterceptor } from '@/utils/axios';
 
 const PostCreator = () => {
