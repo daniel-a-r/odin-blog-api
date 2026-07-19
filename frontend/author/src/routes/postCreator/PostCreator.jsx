@@ -45,7 +45,6 @@ const PostCreator = () => {
             id={titleId}
             name='title'
             type='text'
-            // defaultValue={title}
             className={styles.titleText}
           />
         </div>
@@ -56,7 +55,6 @@ const PostCreator = () => {
           <textarea
             name='body'
             id={bodyId}
-            // defaultValue={body}
             className={styles.bodyText}
             rows='15'
           ></textarea>
