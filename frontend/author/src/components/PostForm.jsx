@@ -25,6 +25,7 @@ const PostForm = ({
           name='title'
           type='text'
           className={styles.titleText}
+          required={true}
           defaultValue={formType === 'edit' ? states.title : null}
         />
       </div>
