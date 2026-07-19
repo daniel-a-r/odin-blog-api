@@ -7,6 +7,7 @@ import { authInterceptor } from '@/utils/axios';
 import PostForm from '@/components/PostForm';
 
 const PostCreator = () => {
+  // FIXME: redirect to dashboard after submit
   const createPost = async (formData) => {
     const requestData = {
       title: formData.get('title'),
