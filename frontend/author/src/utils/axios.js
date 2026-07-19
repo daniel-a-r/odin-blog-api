@@ -13,17 +13,13 @@ authInterceptor.interceptors.request.use(
   (config) => {
     const accessToken = localStorage.getItem('accessToken');
 
-    if (accessToken === null) {
-      throw new Error('accessToken does not exist');
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
     }
 
-    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   },
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  },
+  (error) => Promise.reject(error),
 );
 
 authInterceptor.interceptors.response.use(
@@ -33,21 +29,29 @@ authInterceptor.interceptors.response.use(
   async (error) => {
     try {
       const originalConfig = error.config;
-      if (error.response.status === 401) {
+
+      if (error.response?.status === 401 && !originalConfig._retry) {
+        originalConfig._retry = true;
+
         const response = await axios.get(`${baseURL}/auth/refresh`, {
           withCredentials: true,
         });
+
         const { accessToken } = response.data;
+
         localStorage.setItem('accessToken', accessToken);
         originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+
         console.log('retrying request with refresh token');
-        return axios(originalConfig);
+
+        return authInterceptor(originalConfig);
       }
     } catch (error) {
-      console.log(error);
+      console.error(error);
       localStorage.removeItem('accessToken');
       return Promise.reject(error);
     }
+    return Promise.reject(error);
   },
 );
 
