@@ -48,6 +48,9 @@ const allPostsGet = async (req, res) => {
     where: {
       authorId: user.id,
     },
+    orderBy: {
+      createdAt: "desc"
+    },
   });
 
   res.json(posts);
