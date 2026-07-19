@@ -45,7 +45,10 @@ const PostCreator = () => {
             id={titleId}
             name='title'
             type='text'
+            minLength={1}
+            maxLength={75}
             className={styles.titleText}
+            required={true}
           />
         </div>
         <div className={styles.bodyContainer}>
@@ -57,6 +60,8 @@ const PostCreator = () => {
             id={bodyId}
             className={styles.bodyText}
             rows='15'
+            minLength={1}
+            required={true}
           ></textarea>
         </div>
         <div className={styles.checkboxContainer}>
