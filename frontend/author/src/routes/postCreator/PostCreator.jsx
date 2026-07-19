@@ -1,16 +1,12 @@
 import styles from './PostCreator.module.css';
-import { useId } from 'react';
 import { Link } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { POST_ENDPOINT } from '@/utils/utils';
 import { authInterceptor } from '@/utils/axios';
+import PostForm from '@/components/PostForm';
 
 const PostCreator = () => {
-  const titleId = useId();
-  const bodyId = useId();
-  const isPublishedId = useId();
-
   const createPost = async (formData) => {
     const requestData = {
       title: formData.get('title'),
@@ -36,46 +32,12 @@ const PostCreator = () => {
         </Link>
         <h1>Create Post</h1>
       </header>
-      <form action={createPost} className={styles.form}>
-        <div className={styles.titleContainer}>
-          <label htmlFor={titleId} className={styles.fieldName}>
-            Title
-          </label>
-          <input
-            id={titleId}
-            name='title'
-            type='text'
-            minLength={1}
-            maxLength={75}
-            className={styles.titleText}
-            required={true}
-          />
-        </div>
-        <div className={styles.bodyContainer}>
-          <label htmlFor={bodyId} className={styles.fieldName}>
-            Body
-          </label>
-          <textarea
-            name='body'
-            id={bodyId}
-            className={styles.bodyText}
-            rows='15'
-            minLength={1}
-            required={true}
-          ></textarea>
-        </div>
-        <div className={styles.checkboxContainer}>
-          <label htmlFor={isPublishedId}>Published:</label>
-          <input
-            id={isPublishedId}
-            type='checkbox'
-            name='published'
-            defaultChecked={false}
-            className={styles.checkbox}
-          />
-        </div>
-        <button type='submit'>Create</button>
-      </form>
+      <PostForm
+        formAction={createPost}
+        styles={styles}
+        formType={'create'}
+        submitText={'Create'}
+      />
     </>
   );
 };

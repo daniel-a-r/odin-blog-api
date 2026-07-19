@@ -1,10 +1,11 @@
 import styles from './PostEditor.module.css';
-import { useState, useId } from 'react';
+import { useState } from 'react';
 import { useLoaderData, Link } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
-import { formatDate, POST_ENDPOINT } from '@/utils/utils';
+import { POST_ENDPOINT } from '@/utils/utils';
 import { authInterceptor } from '@/utils/axios';
+import PostForm from '@/components/PostForm';
 
 const PostEditor = () => {
   const data = useLoaderData();
@@ -12,9 +13,8 @@ const PostEditor = () => {
   const [body, setBody] = useState(data.body);
   const [isPublished, setIsPublished] = useState(data.published);
   const [updatedAt, setUpdatedAt] = useState(data.updatedAt);
-  const titleId = useId();
-  const bodyId = useId();
-  const isPublishedId = useId();
+
+  const states = { title, body, isPublished, updatedAt };
 
   const updatePost = async (formData) => {
     const requestData = {
@@ -44,46 +44,14 @@ const PostEditor = () => {
         </Link>
         <h1>Post Editor</h1>
       </header>
-      <form action={updatePost} className={styles.form}>
-        <div className={styles.titleContainer}>
-          <label htmlFor={titleId} className={styles.fieldName}>
-            Title
-          </label>
-          <input
-            id={titleId}
-            name='title'
-            type='text'
-            defaultValue={title}
-            className={styles.titleText}
-          />
-        </div>
-        <div className={styles.bodyContainer}>
-          <label htmlFor={bodyId} className={styles.fieldName}>
-            Body
-          </label>
-          <textarea
-            name='body'
-            id={bodyId}
-            defaultValue={body}
-            className={styles.bodyText}
-            rows='15'
-          ></textarea>
-        </div>
-        <div className={styles.checkboxContainer}>
-          <label htmlFor={isPublishedId}>Published:</label>
-          <input
-            id={isPublishedId}
-            type='checkbox'
-            name='published'
-            defaultChecked={isPublished}
-            className={styles.checkbox}
-          />
-        </div>
-        <p>Updated: {formatDate(updatedAt)}</p>
-        <p>Created: {formatDate(data.createdAt)}</p>
-        <p>id: {data.id}</p>
-        <button type='submit'>Save</button>
-      </form>
+      <PostForm
+        formAction={updatePost}
+        styles={styles}
+        formType={'edit'}
+        submitText={'Save'}
+        data={data}
+        states={states}
+      />
     </>
   );
 };
