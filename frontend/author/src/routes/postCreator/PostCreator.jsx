@@ -1,5 +1,5 @@
 import styles from './PostCreator.module.css';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { POST_ENDPOINT } from '@/utils/utils';
@@ -7,7 +7,8 @@ import { authInterceptor } from '@/utils/axios';
 import PostForm from '@/components/PostForm';
 
 const PostCreator = () => {
-  // FIXME: redirect to dashboard after submit
+  const navigate = useNavigate();
+
   const createPost = async (formData) => {
     const requestData = {
       title: formData.get('title'),
@@ -17,9 +18,8 @@ const PostCreator = () => {
 
     try {
       const path = `${POST_ENDPOINT}`;
-      const response = await authInterceptor.post(path, requestData);
-      const { post } = response.data;
-      console.log(post);
+      await authInterceptor.post(path, requestData);
+      return navigate('/');
     } catch (error) {
       console.error(error);
     }
