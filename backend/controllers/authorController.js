@@ -49,7 +49,7 @@ const allPostsGet = async (req, res) => {
       authorId: user.id,
     },
     orderBy: {
-      createdAt: "desc"
+      createdAt: 'desc',
     },
   });
 
