@@ -1,13 +1,13 @@
-import js from '@eslint/js';
 import globals from 'globals';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import json from '@eslint/json';
 import css from '@eslint/css';
 import { defineConfig } from 'eslint/config';
+import baseConfig from '../../eslint.config.js';
 
 export default defineConfig([
+  ...baseConfig,
   { ignores: ['dist'] },
   {
     files: ['**/*.{js,jsx}'],
@@ -16,9 +16,8 @@ export default defineConfig([
         version: 'detect',
       },
     },
-    plugins: { js, react, reactHooks, reactRefresh },
+    plugins: { react, reactHooks, reactRefresh },
     extends: [
-      'js/recommended',
       react.configs.flat.recommended,
       react.configs.flat['jsx-runtime'],
       reactHooks.configs['recommended-latest'],
@@ -37,12 +36,6 @@ export default defineConfig([
         },
       ],
     },
-  },
-  {
-    files: ['**/*.json'],
-    plugins: { json },
-    language: 'json/json',
-    extends: ['json/recommended'],
   },
   {
     files: ['**/*.css'],

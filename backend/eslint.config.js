@@ -1,27 +1,21 @@
-import js from '@eslint/js';
 import globals from 'globals';
-import json from '@eslint/json';
-import eslintPluginPrettierRecommended from 'eslint-plugin-prettier/recommended';
 import { defineConfig } from 'eslint/config';
+import baseConfig from '../eslint.config.js';
 
 export default defineConfig([
+  ...baseConfig,
   {
     files: ['**/*.{js,mjs,cjs}'],
-    plugins: { js },
-    extends: ['js/recommended'],
+    languageOptions: { globals: globals.node },
     rules: {
       'no-unused-vars': [
         'warn',
-        { argsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^ignore' },
+        {
+          argsIgnorePattern: '^_',
+          caughtErrorsIgnorePattern: '^ignore',
+          destructuredArrayIgnorePattern: '^_',
+        },
       ],
     },
   },
-  { files: ['**/*.{js,mjs,cjs}'], languageOptions: { globals: globals.node } },
-  {
-    files: ['**/*.json'],
-    plugins: { json },
-    language: 'json/json',
-    extends: ['json/recommended'],
-  },
-  eslintPluginPrettierRecommended,
 ]);
