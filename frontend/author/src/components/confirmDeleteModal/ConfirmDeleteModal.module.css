@@ -34,7 +34,8 @@
   background: oklch(27.99% 0.0408 260.347);
   border-radius: 0.5rem;
   border: 0.125rem solid oklch(44.6% 0.043 257.281);
-  width: 75%;
+  width: max-content;
+  max-width: 37.5rem;
   height: min-content;
   top: 50%;
   left: 50%;
