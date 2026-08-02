@@ -8,24 +8,24 @@ const ConfirmDeleteModal = ({
   title,
   id,
 }) => {
-  if (!isModalOpen) return null;
-
   return (
-    <div className={styles.modalOverlay}>
-      <div className={styles.modalContent}>
-        <h2 className={styles.h2}>Are you sure you want to delete?</h2>
-        <h3 className={styles.h3}>{title}</h3>
-        <p className={styles.p}>id: {id}</p>
-        <div className={styles.buttonContainer}>
-          <button type='button' onClick={onCancel}>
-            Cancel
-          </button>
-          <button type='button' onClick={onConfirm} className={styles.delete}>
-            Delete
-          </button>
+    isModalOpen && (
+      <div className={styles.modalOverlay}>
+        <div className={styles.modalContent}>
+          <h2 className={styles.h2}>Are you sure you want to delete?</h2>
+          <h3 className={styles.h3}>{title}</h3>
+          <p className={styles.p}>id: {id}</p>
+          <div className={styles.buttonContainer}>
+            <button type='button' onClick={onCancel}>
+              Cancel
+            </button>
+            <button type='button' onClick={onConfirm} className={styles.delete}>
+              Delete
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
