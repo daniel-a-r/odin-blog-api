@@ -9,6 +9,7 @@ const PostForm = ({
   submitText,
   data,
   states,
+  handleOpenModal,
 }) => {
   const titleId = useId();
   const bodyId = useId();
@@ -60,7 +61,18 @@ const PostForm = ({
           <p>id: {data.id}</p>
         </>
       ) : null}
-      <button type='submit'>{submitText}</button>
+      <div className={styles.buttonContainer}>
+        <button type='submit'>{submitText}</button>
+        {formType === 'edit' ? (
+          <button
+            type='button'
+            className={styles.delete}
+            onClick={handleOpenModal}
+          >
+            Delete
+          </button>
+        ) : null}
+      </div>
     </form>
   );
 };
@@ -74,8 +86,10 @@ PostForm.propTypes = {
     titleText: PropTypes.string.isRequired,
     bodyContainer: PropTypes.string.isRequired,
     bodyText: PropTypes.string.isRequired,
+    buttonContainer: PropTypes.string.isRequired,
     checkboxContainer: PropTypes.string.isRequired,
     checkbox: PropTypes.string.isRequired,
+    delete: PropTypes.string.isRequired,
   }).isRequired,
   formType: PropTypes.oneOf(['create', 'edit']).isRequired,
   submitText: PropTypes.oneOf(['Edit', 'Save']).isRequired,
@@ -89,6 +103,7 @@ PostForm.propTypes = {
     isPublished: PropTypes.bool.isRequired,
     updatedAt: PropTypes.string.isRequired,
   }),
+  handleOpenModal: PropTypes.func,
 };
 
 export default PostForm;
