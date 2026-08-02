@@ -27,7 +27,7 @@ const PostForm = ({
           type='text'
           className={styles.titleText}
           required={true}
-          defaultValue={formType === 'edit' ? states.title : null}
+          defaultValue={formType === 'edit' && states.title}
         />
       </div>
       <div className={styles.bodyContainer}>
@@ -41,7 +41,7 @@ const PostForm = ({
           rows='15'
           minLength={1}
           required={true}
-          defaultValue={formType === 'edit' ? states.body : null}
+          defaultValue={formType === 'edit' && states.body}
         ></textarea>
       </div>
       <div className={styles.checkboxContainer}>
@@ -54,20 +54,20 @@ const PostForm = ({
           defaultChecked={formType === 'edit' ? states.isPublished : false}
         />
       </div>
-      {formType === 'edit' ? (
+      {formType === 'edit' && (
         <>
           <p>Updated: {formatDate(states.updatedAt)}</p>
           <p>Created: {formatDate(data.createdAt)}</p>
           <p>id: {data.id}</p>
         </>
-      ) : null}
+      )}
       <div className={styles.buttonContainer}>
         <button type='submit'>{submitText}</button>
-        {formType === 'edit' ? (
+        {formType === 'edit' && (
           <button type='button' onClick={handleOpenModal}>
             Delete
           </button>
-        ) : null}
+        )}
       </div>
     </form>
   );
