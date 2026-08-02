@@ -1,11 +1,3 @@
-button.delete {
-  background-color: oklch(57.7% 0.245 27.325);
-
-  &:hover {
-    background-color: oklch(50.5% 0.213 27.518);
-  }
-}
-
 .buttonContainer {
   display: flex;
   gap: 0.5rem;
