@@ -20,7 +20,7 @@ const ConfirmDeleteModal = ({
           <button type='button' onClick={onCancel}>
             Cancel
           </button>
-          <button type='button' onClick={onConfirm}>
+          <button type='button' onClick={onConfirm} className={styles.delete}>
             Delete
           </button>
         </div>

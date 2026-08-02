@@ -64,11 +64,7 @@ const PostForm = ({
       <div className={styles.buttonContainer}>
         <button type='submit'>{submitText}</button>
         {formType === 'edit' ? (
-          <button
-            type='button'
-            className={styles.delete}
-            onClick={handleOpenModal}
-          >
+          <button type='button' onClick={handleOpenModal}>
             Delete
           </button>
         ) : null}
