@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Warn: no test specified for frontend\"",
-    "dev": "vite --host",
+    "dev": "vite --host --strictPort",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
