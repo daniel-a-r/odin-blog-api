@@ -5,13 +5,16 @@ import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
 import routes from '@/app/routes';
 import { ThemeProvider } from '@/components/ThemeProvider';
+import { AuthStatusProvider } from '@/app/AuthStatusProvider';
 
 const router = createBrowserRouter(routes);
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ThemeProvider defaultTheme='dark' storageKey='vite-ui-theme'>
-      <RouterProvider router={router} />
+      <AuthStatusProvider>
+        <RouterProvider router={router} />
+      </AuthStatusProvider>
     </ThemeProvider>
   </StrictMode>,
 );
