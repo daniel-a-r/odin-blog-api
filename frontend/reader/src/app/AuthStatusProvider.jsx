@@ -19,9 +19,4 @@ const AuthStatusProvider = ({ children }) => {
   );
 };
 
-const useAuthStatus = () => {
-  const context = useContext(AuthStatusContext);
-  return context;
-};
-
-export { AuthStatusProvider, useAuthStatus };
+export { AuthStatusProvider, AuthStatusContext };
