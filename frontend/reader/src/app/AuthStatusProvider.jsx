@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useContext, useState } from 'react';
 
 const initialState = {
   authStatus: false,
@@ -19,4 +19,9 @@ const AuthStatusProvider = ({ children }) => {
   );
 };
 
-export { AuthStatusProvider, AuthStatusContext };
+const useAuthStatus = () => {
+  const context = useContext(AuthStatusContext);
+  return context;
+};
+
+export { AuthStatusProvider, useAuthStatus };
