@@ -2,13 +2,13 @@
   "singleQuote": true,
   "overrides": [
     {
-      "files": "frontend/",
+      "files": "frontend/**/*.jsx",
       "options": {
         "jsxSingleQuote": true
       }
     },
     {
-      "files": "frontend/reader/",
+      "files": "frontend/reader/**/*.jsx",
       "options": {
         "plugins": ["prettier-plugin-tailwindcss"]
       }
