@@ -1,0 +1,17 @@
+{
+  "singleQuote": true,
+  "overrides": [
+    {
+      "files": "frontend/",
+      "options": {
+        "jsxSingleQuote": true
+      }
+    },
+    {
+      "files": "frontend/reader/",
+      "options": {
+        "plugins": ["prettier-plugin-tailwindcss"]
+      }
+    }
+  ]
+}
