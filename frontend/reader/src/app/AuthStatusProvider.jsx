@@ -1,11 +1,6 @@
-import { createContext, useContext, useState } from 'react';
-
-const initialState = {
-  authStatus: false,
-  setAuthStatus: () => null,
-};
-
-const AuthStatusContext = createContext(initialState);
+import { useState } from 'react';
+import propTypes from 'prop-types';
+import AuthStatusContext from '@/app/AuthStatusContext';
 
 const AuthStatusProvider = ({ children }) => {
   const [authStatus, setAuthStatus] = useState(
@@ -19,9 +14,8 @@ const AuthStatusProvider = ({ children }) => {
   );
 };
 
-const useAuthStatus = () => {
-  const context = useContext(AuthStatusContext);
-  return context;
+AuthStatusProvider.propTypes = {
+  children: propTypes.node.isRequired,
 };
 
-export { AuthStatusProvider, useAuthStatus };
+export { AuthStatusProvider };
