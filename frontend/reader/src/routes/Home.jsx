@@ -1,11 +1,36 @@
 import { useLoaderData } from 'react-router';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 const Home = () => {
   const posts = useLoaderData();
 
-  console.log('Posts in Home component:', posts);
-
-  return <>Hello world</>;
+  return (
+    <div className='grid h-full justify-items-center'>
+      <ul className='flex w-full max-w-3xl flex-col gap-5'>
+        {posts.map((post) => (
+          <li key={post.id}>
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-3xl'>{post.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p>{post.body}</p>
+              </CardContent>
+              <CardFooter>
+                <p>{post.createdAt}</p>
+              </CardFooter>
+            </Card>
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default Home;
