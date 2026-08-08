@@ -17,7 +17,7 @@ const SignUp = () => {
 
   return (
     <div className='grid h-full content-center sm:justify-center'>
-      <Card className='max-w-lg sm:w-md'>
+      <Card className='sm:w-md max-w-lg'>
         <CardHeader>
           <CardTitle>Sign Up</CardTitle>
           <CardAction>Login</CardAction>

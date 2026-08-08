@@ -13,7 +13,7 @@ import { Button } from '@/components/ui/button';
 const Login = () => {
   return (
     <div className='grid h-full content-center sm:justify-center'>
-      <Card className='max-w-lg sm:w-md'>
+      <Card className='sm:w-md max-w-lg'>
         <CardHeader>
           <CardTitle>Login</CardTitle>
           <CardAction>Sign Up</CardAction>
