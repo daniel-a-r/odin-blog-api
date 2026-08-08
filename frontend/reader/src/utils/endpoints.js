@@ -3,6 +3,5 @@ export const baseURL = import.meta.env.DEV
   : 'tbd';
 
 export const LOGIN_ENDPOINT = '/auth/login/';
-export const VALIDATE_ENDPOINT = '/auth/validate/';
 export const LOGOUT_ENDPOINT = '/auth/logout/';
-export const POST_ENDPOINT = '/reader/post/';
+export const READER_POST_ENDPOINT = '/reader/post/';
