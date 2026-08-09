@@ -29,6 +29,9 @@ const singlePostGet = async (req, res) => {
         id: params.postId,
         published: true,
       },
+      include: {
+        comments: true,
+      },
     });
 
     res.json({ post });
