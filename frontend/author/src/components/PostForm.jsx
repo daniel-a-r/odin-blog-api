@@ -27,7 +27,7 @@ const PostForm = ({
           type='text'
           className={styles.titleText}
           required={true}
-          defaultValue={formType === 'edit' && states.title}
+          defaultValue={formType === 'edit' ? states.title : ''}
         />
       </div>
       <div className={styles.bodyContainer}>
@@ -41,7 +41,7 @@ const PostForm = ({
           rows='15'
           minLength={1}
           required={true}
-          defaultValue={formType === 'edit' && states.body}
+          defaultValue={formType === 'edit' ? states.body : ''}
         ></textarea>
       </div>
       <div className={styles.checkboxContainer}>
