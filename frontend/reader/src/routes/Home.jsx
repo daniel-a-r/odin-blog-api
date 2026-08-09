@@ -23,7 +23,7 @@ const Home = () => {
                 <p>{post.body}</p>
               </CardContent>
               <CardFooter>
-                <p>{post.createdAt}</p>
+                <p>{new Date(post.createdAt).toLocaleDateString()}</p>
               </CardFooter>
             </Card>
           </li>
