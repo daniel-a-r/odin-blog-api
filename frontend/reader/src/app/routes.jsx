@@ -3,12 +3,13 @@ import RootLayout from '@/components/layouts/RootLayout';
 import Login from '@/routes/Login';
 import SignUp from '@/routes/SignUp';
 import Post from '@/routes/Post';
-import PostErrorBoundary from '@/routes/PostErrorBoundary';
+import RootErrorBoundary from '@/routes/RootErrorBoundary';
 import { loadAllPosts, loadPost } from '@/app/loaders';
 
 const routes = [
   {
     Component: RootLayout,
+    ErrorBoundary: RootErrorBoundary,
     children: [
       { index: true, Component: Home, loader: loadAllPosts },
       { path: 'login', Component: Login },
@@ -17,7 +18,6 @@ const routes = [
         path: 'post/:postId',
         Component: Post,
         loader: loadPost,
-        ErrorBoundary: PostErrorBoundary,
       },
     ],
   },
