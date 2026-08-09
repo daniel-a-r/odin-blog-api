@@ -6,4 +6,9 @@ const loadAllPosts = async () => {
   return data;
 };
 
-export { loadAllPosts };
+const loadPost = async ({ params }) => {
+  const data = await api.get(`${READER_POST_ENDPOINT}${params.postId}`);
+  return data;
+};
+
+export { loadAllPosts, loadPost };
