@@ -7,7 +7,7 @@ const loadAllPosts = async () => {
 };
 
 const loadPost = async ({ params }) => {
-  const data = await api.get(`${READER_POST_ENDPOINT}${params.postId}`);
+  const { data } = await api.get(`${READER_POST_ENDPOINT}${params.postId}`);
   return data;
 };
 
