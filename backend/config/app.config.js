@@ -6,7 +6,7 @@ import cors from 'cors';
 
 const app = express();
 
-// app.use(cors({ origin: ['http://localhost:5174'] }));
+app.use(cors({ origin: ['http://localhost:5174'] }));
 app.use(helemt());
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
