@@ -10,6 +10,12 @@ const allPostsGet = async (_req, res) => {
     where: {
       published: true,
     },
+    select: {
+      title: true,
+      body: true,
+      createdAt: true,
+      id: true,
+    },
   });
 
   res.json(posts);
