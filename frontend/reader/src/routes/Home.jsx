@@ -19,8 +19,8 @@ const Home = () => {
               <CardHeader>
                 <CardTitle className='text-3xl'>{post.title}</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p>{post.body}</p>
+              <CardContent className='max-h-60'>
+                <p className='line-clamp-8'>{post.body}</p>
               </CardContent>
               <CardFooter>
                 <p>{new Date(post.createdAt).toLocaleDateString()}</p>
