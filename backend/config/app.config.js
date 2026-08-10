@@ -12,7 +12,7 @@ const accessLogStream = createWriteStream(
   { flags: 'a' },
 );
 
-app.use(cors({ origin: ['http://localhost:5174'] }));
+app.use(cors({ origin: ['http://localhost:5174'], credentials: true }));
 app.use(helemt());
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
