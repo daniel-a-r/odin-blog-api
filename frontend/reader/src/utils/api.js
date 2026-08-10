@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { baseURL } from '@/utils/endpoints.js';
 
+let accessToken = null;
+
+const setAxiosAccessToken = (token) => {
+  accessToken = token;
+};
+
 const api = axios.create({
   baseURL: baseURL,
 });
 
 api.interceptors.request.use((config) => {
-  const accessToken = localStorage.getItem('accessToken');
-
   if (accessToken) {
     config.headers['Authorization'] = `Bearer ${accessToken}`;
   }
@@ -20,22 +24,19 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config;
 
-    if (error.response?.status === 401 && !originalRequest._rety) {
-      originalRequest._rety = true;
-
+    if (error.status === 401 && originalRequest.url !== '/auth/refresh/') {
       try {
         const { data } = await axios.get(`${baseURL}/auth/refresh`, {
           withCredentials: true,
         });
 
         const newToken = data.accessToken;
-        localStorage.setItem('accessToken', newToken);
-        api.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        setAxiosAccessToken(newToken);
 
         return api(originalRequest);
       } catch (refreshError) {
         console.error('Refresh token request failed:', refreshError);
-        localStorage.removeItem('accessToken');
+        setAxiosAccessToken(null);
         return Promise.reject(refreshError);
       }
     }
@@ -45,3 +46,4 @@ api.interceptors.response.use(
 );
 
 export default api;
+export { setAxiosAccessToken };
