@@ -11,6 +11,15 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 
 const Login = () => {
+  const handleLogin = (formData) => {
+    const body = {
+      username: formData.get('username'),
+      password: formData.get('password'),
+    };
+
+    console.log(body);
+  };
+
   return (
     <div className='grid h-full content-center sm:justify-center'>
       <Card className='sm:w-md max-w-lg'>
@@ -19,7 +28,7 @@ const Login = () => {
           <CardAction>Sign Up</CardAction>
         </CardHeader>
         <CardContent>
-          <form id='loginForm' className='grid gap-4'>
+          <form action={handleLogin} id='loginForm' className='grid gap-4'>
             <div className='grid gap-2'>
               <Label htmlFor='username'>Username</Label>
               <Input type='text' id='username' name='username' required />
