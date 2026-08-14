@@ -26,8 +26,12 @@ api.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
+    const regex = /^\/auth\//;
+    const isAuthEndpoint = originalRequest.url.match(regex);
 
-    if (error.status === 401 && originalRequest.url !== '/auth/refresh/') {
+    if (error.status === 401 && !isAuthEndpoint && !originalRequest._retry) {
+      originalRequest._retry = true;
+
       try {
         const { data } = await axios.get(`${baseURL}/auth/refresh`, {
           withCredentials: true,
