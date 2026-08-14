@@ -1,12 +1,22 @@
 import { Button } from '@/components/ui/button';
 import { Outlet, Link } from 'react-router';
 import { useAuth } from '@/contexts/AuthContext';
+import api from '@/utils/api';
+import { LOGOUT_ENDPOINT } from '@/utils/endpoints';
 
 const RootLayout = () => {
-  const { accessToken } = useAuth();
+  const { accessToken, setAccessToken } = useAuth();
 
-  const handleSignOut = () => {
-    console.log('Sign out clicked');
+  const handleSignOut = async () => {
+    try {
+      const { data } = await api.get(LOGOUT_ENDPOINT, {
+        withCredentials: true,
+      });
+      setAccessToken('');
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Card,
   CardAction,
@@ -9,15 +11,35 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import api from '@/utils/api';
+import { LOGIN_ENDPOINT } from '@/utils/endpoints';
+import { useAuth } from '@/contexts/AuthContext';
 
 const Login = () => {
-  const handleLogin = (formData) => {
+  const { accessToken, setAccessToken } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/');
+    }
+  }, [accessToken, navigate]);
+
+  const handleLogin = async (formData) => {
     const body = {
       username: formData.get('username'),
       password: formData.get('password'),
     };
 
-    console.log(body);
+    try {
+      const { data } = await api.post(LOGIN_ENDPOINT, body, {
+        withCredentials: true,
+      });
+      setAccessToken(data.accessToken);
+      navigate('/');
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

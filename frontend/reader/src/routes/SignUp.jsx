@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Card,
   CardAction,
@@ -10,6 +10,7 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router';
 import api from '@/utils/api';
 import { SIGN_UP_ENDPOINT } from '@/utils/endpoints';
 import { useAuth } from '@/contexts/AuthContext';
@@ -17,6 +18,13 @@ import { useAuth } from '@/contexts/AuthContext';
 const SignUp = () => {
   const [errorMessages, setErrorMessages] = useState([]);
   const { accessToken, setAccessToken } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (accessToken) {
+      navigate('/');
+    }
+  }, [accessToken, navigate]);
 
   const handleSignUp = async (formData) => {
     const body = {
@@ -29,7 +37,8 @@ const SignUp = () => {
       const { data } = await api.post(SIGN_UP_ENDPOINT, body, {
         withCredentials: true,
       });
-      console.log(data);
+      setAccessToken(data.accessToken);
+      navigate('/');
     } catch (error) {
       if ((error.status = 400 && error.response?.data.validationErrors)) {
         const { validationErrors } = error.response.data;
