@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import api from '@/utils/api';
 import { REFRESH_ENDPOINT } from '@/utils/endpoints';
+import { configureAuth } from '@/utils/api';
 
 const initialState = {
   accessToken: '',
@@ -14,19 +15,25 @@ const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState('');
 
   useEffect(() => {
-    const getAccessToken = async () => {
+    configureAuth({
+      getToken: () => accessToken,
+      setToken: setAccessToken,
+    });
+  }, [accessToken]);
+
+  useEffect(() => {
+    const initAccessToken = async () => {
       try {
         const { data } = await api.get(REFRESH_ENDPOINT, {
           withCredentials: true,
         });
         setAccessToken(data.accessToken);
-        console.log(data);
       } catch (error) {
         if (error.status !== 401) throw error;
       }
     };
 
-    getAccessToken();
+    initAccessToken();
   }, []);
 
   return (

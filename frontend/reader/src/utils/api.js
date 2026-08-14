@@ -1,10 +1,11 @@
 import axios from 'axios';
 import { baseURL } from '@/utils/endpoints.js';
 
-let accessToken = null;
+let getAccessToken = () => null;
+let setAccessToken = () => {};
 
-const setAxiosAccessToken = (token) => {
-  accessToken = token;
+const configureAuth = ({ getToken, setToken }) => {
+  ((getAccessToken = getToken), (setAccessToken = setToken));
 };
 
 const api = axios.create({
@@ -12,6 +13,8 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  const accessToken = getAccessToken();
+
   if (accessToken) {
     config.headers['Authorization'] = `Bearer ${accessToken}`;
   }
@@ -31,12 +34,12 @@ api.interceptors.response.use(
         });
 
         const newToken = data.accessToken;
-        setAxiosAccessToken(newToken);
+        setAccessToken(newToken);
 
         return api(originalRequest);
       } catch (refreshError) {
         console.error('Refresh token request failed:', refreshError);
-        setAxiosAccessToken(null);
+        setAccessToken(null);
         return Promise.reject(refreshError);
       }
     }
@@ -46,4 +49,4 @@ api.interceptors.response.use(
 );
 
 export default api;
-export { setAxiosAccessToken };
+export { configureAuth };
