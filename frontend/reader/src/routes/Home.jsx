@@ -16,7 +16,7 @@ const Home = () => {
         {posts.map((post) => (
           <Link to={`/post/${post.id}`} key={post.id}>
             <li>
-              <Card>
+              <Card className='gap-2'>
                 <CardHeader>
                   <CardTitle className='text-2xl'>{post.title}</CardTitle>
                   <CardDescription>
