@@ -1,10 +1,10 @@
 import { useLoaderData, Link } from 'react-router';
 import {
   Card,
-  CardContent,
-  CardFooter,
   CardHeader,
   CardTitle,
+  CardDescription,
+  CardContent,
 } from '@/components/ui/card';
 
 const Home = () => {
@@ -18,14 +18,14 @@ const Home = () => {
             <li>
               <Card>
                 <CardHeader>
-                  <CardTitle className='text-3xl'>{post.title}</CardTitle>
+                  <CardTitle className='text-2xl'>{post.title}</CardTitle>
+                  <CardDescription>
+                    {new Date(post.createdAt).toLocaleDateString()}
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className='max-h-60'>
                   <p className='line-clamp-8'>{post.body}</p>
                 </CardContent>
-                <CardFooter>
-                  <p>{new Date(post.createdAt).toLocaleDateString()}</p>
-                </CardFooter>
               </Card>
             </li>
           </Link>
