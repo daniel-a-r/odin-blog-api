@@ -1,18 +1,25 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import propTypes from 'prop-types';
 import api from '@/utils/api';
-import { REFRESH_ENDPOINT } from '@/utils/endpoints';
+import { REFRESH_ENDPOINT, USER_ENDPOINT, baseURL } from '@/utils/endpoints';
 import { configureAuth } from '@/utils/api';
+import axios from 'axios';
 
 const initialState = {
   accessToken: '',
   setAccessToken: () => null,
+  user: {
+    username: '',
+    id: '',
+  },
+  setUser: () => null,
 };
 
 const AuthContext = createContext(initialState);
 
 const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState('');
+  const [user, setUser] = useState(accessToken);
 
   useEffect(() => {
     configureAuth({
@@ -24,10 +31,19 @@ const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAccessToken = async () => {
       try {
-        const { data } = await api.get(REFRESH_ENDPOINT, {
+        const refreshRespone = await api.get(REFRESH_ENDPOINT, {
           withCredentials: true,
         });
-        setAccessToken(data.accessToken);
+        const { accessToken } = refreshRespone.data;
+        setAccessToken(accessToken);
+
+        const userResponse = await axios.get(`${baseURL}${USER_ENDPOINT}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        });
+        const { user } = userResponse.data;
+        setUser(user);
       } catch (error) {
         if (error.status !== 401) throw error;
       }
@@ -37,7 +53,7 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext value={{ accessToken, setAccessToken }}>
+    <AuthContext value={{ accessToken, setAccessToken, user, setUser }}>
       {children}
     </AuthContext>
   );
