@@ -9,5 +9,6 @@ router.post('/login', controller.loginPost);
 router.get('/refresh', controller.refreshGet);
 router.get('/validate', passportJwtAuth, controller.validateGet);
 router.get('/logout', controller.logoutGet);
+router.get('/user', passportJwtAuth, controller.userGet);
 
 export default router;

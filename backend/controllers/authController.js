@@ -217,6 +217,10 @@ const validateGet = (_req, res) => {
   res.json({ user: 'valid' });
 };
 
+const userGet = (req, res) => {
+  res.json({ user: req.user });
+};
+
 const logoutGet = (req, res) => {
   const { refreshToken } = req.signedCookies;
   if (refreshToken) {
@@ -228,4 +232,11 @@ const logoutGet = (req, res) => {
   }
 };
 
-export default { signUpPost, loginPost, refreshGet, validateGet, logoutGet };
+export default {
+  signUpPost,
+  loginPost,
+  refreshGet,
+  validateGet,
+  logoutGet,
+  userGet,
+};
