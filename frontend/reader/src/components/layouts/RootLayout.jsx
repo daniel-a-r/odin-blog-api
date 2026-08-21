@@ -20,8 +20,8 @@ const RootLayout = () => {
   };
 
   return (
-    <div className='mx-auto grid h-svh max-w-5xl grid-rows-[max-content_1fr] px-8'>
-      <div className='flex justify-between py-4'>
+    <div className='mx-auto grid min-h-svh max-w-5xl grid-rows-[max-content_1fr] gap-y-8 p-8'>
+      <div className='flex justify-between'>
         <Link to='/'>
           <Button variant='ghost'>Danny&apos;s Blog</Button>
         </Link>
@@ -42,7 +42,7 @@ const RootLayout = () => {
           )}
         </div>
       </div>
-      <div className='p-4'>
+      <div className='px-4'>
         <Outlet />
       </div>
     </div>
