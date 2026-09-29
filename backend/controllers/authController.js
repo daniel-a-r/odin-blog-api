@@ -123,7 +123,10 @@ const createUser = async (req, res) => {
   const accessToken = createAccessToken(payload);
   const refreshToken = createRefreshToken(payload);
 
-  res.cookie('refreshToken', refreshToken, COOKIE_OPTS).json({ accessToken });
+  res
+    .status(201)
+    .cookie('refreshToken', refreshToken, COOKIE_OPTS)
+    .json({ message: 'New user created', accessToken, user: payload });
 };
 
 const signUpPost = [...validateSignUp, checkSignUpValidationErrors, createUser];
@@ -187,7 +190,9 @@ const validateRole = (req, res, next) => {
 const loginRes = (req, res) => {
   const accessToken = createAccessToken(req.payload);
   const refreshToken = createRefreshToken(req.payload);
-  res.cookie('refreshToken', refreshToken, COOKIE_OPTS).json({ accessToken });
+  res
+    .cookie('refreshToken', refreshToken, COOKIE_OPTS)
+    .json({ accessToken, user: req.payload });
 };
 
 const loginPost = [findUser, validateRole, loginRes];
