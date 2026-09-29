@@ -5,6 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
+import Comments from '@/components/comments';
 
 const Post = () => {
   const { post } = useLoaderData();
@@ -20,6 +21,7 @@ const Post = () => {
       <CardContent>
         <p className='whitespace-pre-wrap'>{post.body}</p>
       </CardContent>
+      <Comments />
     </div>
   );
 };
