@@ -19,7 +19,7 @@ const AuthContext = createContext(initialState);
 
 const AuthProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState('');
-  const [user, setUser] = useState(accessToken);
+  const [user, setUser] = useState({});
 
   useEffect(() => {
     configureAuth({

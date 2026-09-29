@@ -16,7 +16,7 @@ import { LOGIN_ENDPOINT } from '@/utils/endpoints';
 import { useAuth } from '@/contexts/AuthContext';
 
 const Login = () => {
-  const { accessToken, setAccessToken } = useAuth();
+  const { accessToken, setAccessToken, setUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -36,6 +36,7 @@ const Login = () => {
         withCredentials: true,
       });
       setAccessToken(data.accessToken);
+      setUser(data.user);
       navigate('/');
     } catch (error) {
       console.error(error);

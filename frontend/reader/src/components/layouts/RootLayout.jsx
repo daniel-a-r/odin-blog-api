@@ -5,7 +5,7 @@ import api from '@/utils/api';
 import { LOGOUT_ENDPOINT } from '@/utils/endpoints';
 
 const RootLayout = () => {
-  const { accessToken, setAccessToken } = useAuth();
+  const { accessToken, setAccessToken, setUser } = useAuth();
 
   const handleSignOut = async () => {
     try {
@@ -13,6 +13,7 @@ const RootLayout = () => {
         withCredentials: true,
       });
       setAccessToken('');
+      setUser({});
       console.log(data);
     } catch (error) {
       console.error(error);
