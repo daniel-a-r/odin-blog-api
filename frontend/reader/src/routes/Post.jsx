@@ -5,7 +5,7 @@ import {
   CardDescription,
   CardContent,
 } from '@/components/ui/card';
-import Comments from '@/components/comments';
+import Comments from '@/components/Comments';
 
 const Post = () => {
   const { post } = useLoaderData();

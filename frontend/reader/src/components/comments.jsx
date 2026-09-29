@@ -12,12 +12,15 @@ const Comments = () => {
   console.log('user:', user);
 
   return (
-    <Item variant='outline'>
-      <ItemContent>
-        <ItemTitle>Item title</ItemTitle>
-        <ItemDescription>Item description</ItemDescription>
-      </ItemContent>
-    </Item>
+    <>
+      <h1>Comments</h1>
+      <Item variant='outline'>
+        <ItemContent>
+          <ItemTitle>Item title</ItemTitle>
+          <ItemDescription>Item description</ItemDescription>
+        </ItemContent>
+      </Item>
+    </>
   );
 };
 
