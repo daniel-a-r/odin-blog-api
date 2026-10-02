@@ -36,7 +36,11 @@ const singlePostGet = async (req, res) => {
         published: true,
       },
       include: {
-        comments: true,
+        comments: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
       },
     });
 
