@@ -75,7 +75,7 @@ const commentPost = async (req, res) => {
       throw new Error(comment);
     }
 
-    res.json(comment);
+    res.status(201).json(comment);
   } catch (ignoreError) {
     res.status(404).json({ message: 'post not found' });
   }
