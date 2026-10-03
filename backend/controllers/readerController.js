@@ -1,4 +1,5 @@
 import prisma from '../prisma/client.js';
+import { Prisma } from '@prisma/client';
 
 /**
  * Get all published posts from Authors for Reader user
@@ -75,13 +76,16 @@ const commentPost = async (req, res) => {
       },
     });
 
-    if (comment.code === 'P2025') {
-      throw new Error(comment);
-    }
-
     res.status(201).json(comment);
-  } catch (ignoreError) {
-    res.status(404).json({ message: 'post not found' });
+  } catch (e) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2025'
+    ) {
+      res.status(404).json({ message: 'User or Post not found' });
+    } else {
+      throw e;
+    }
   }
 };
 

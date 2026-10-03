@@ -17,6 +17,7 @@ app.use((_req, res) => {
 });
 
 app.use((err, _req, res, _next) => {
+  console.error(Object.getPrototypeOf(err));
   console.error(err);
   const statusCode = err.status || 500;
   res.status(statusCode).json(err);
