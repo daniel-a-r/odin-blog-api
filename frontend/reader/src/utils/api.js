@@ -1,11 +1,14 @@
 import axios from 'axios';
 import { baseURL } from '@/utils/endpoints.js';
+import { REFRESH_ENDPOINT } from '@/utils/endpoints.js';
 
 let getAccessToken = () => null;
 let setAccessToken = () => {};
+let axiosToken = null;
 
 const configureAuth = ({ getToken, setToken }) => {
-  ((getAccessToken = getToken), (setAccessToken = setToken));
+  getAccessToken = getToken;
+  setAccessToken = setToken;
 };
 
 const api = axios.create({
@@ -13,7 +16,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const accessToken = getAccessToken();
+  const accessToken = axiosToken ?? getAccessToken();
 
   if (accessToken) {
     config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -33,13 +36,14 @@ api.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        const { data } = await axios.get(`${baseURL}/auth/refresh`, {
+        const { data } = await api.get(`${REFRESH_ENDPOINT}`, {
           withCredentials: true,
         });
 
         const newToken = data.accessToken;
         setAccessToken(newToken);
-
+        axiosToken = newToken;
+        console.log('Reauthenticating...');
         return api(originalRequest);
       } catch (refreshError) {
         console.error('Refresh token request failed:', refreshError);

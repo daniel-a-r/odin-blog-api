@@ -1,5 +1,6 @@
 import prisma from '../prisma/client.js';
 import { Prisma } from '@prisma/client';
+import { body, validationResult } from 'express-validator';
 
 /**
  * Get all published posts from Authors for Reader user
@@ -38,6 +39,13 @@ const singlePostGet = async (req, res) => {
       },
       include: {
         comments: {
+          include: {
+            commenter: {
+              select: {
+                username: true,
+              },
+            },
+          },
           orderBy: {
             createdAt: 'asc',
           },
@@ -47,8 +55,21 @@ const singlePostGet = async (req, res) => {
 
     res.json({ post });
   } catch (ignoreError) {
+    console.log(ignoreError);
     res.status(404).json({ message: 'post not found' });
   }
+};
+
+const validateComment = [
+  body('content').notEmpty().withMessage('Comment cannot be empty').trim(),
+];
+
+const checkCommentValidationErrors = (req, res, next) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ validationErrors: errors.array() });
+  }
+  next();
 };
 
 /**
@@ -57,7 +78,7 @@ const singlePostGet = async (req, res) => {
  * @param {Request} req Express request
  * @param {Response} res Express response
  */
-const commentPost = async (req, res) => {
+const createComment = async (req, res) => {
   try {
     const comment = await prisma.comment.create({
       data: {
@@ -89,6 +110,12 @@ const commentPost = async (req, res) => {
   }
 };
 
+const commentPost = [
+  ...validateComment,
+  checkCommentValidationErrors,
+  createComment,
+];
+
 /**
  * Get all comments on a published post.
  * @param {Request} req Express request
@@ -116,17 +143,36 @@ const allCommentsGet = async (req, res) => {
  * @param {Response} res Express response
  */
 const commentDelete = async (req, res) => {
-  await prisma.comment.delete({
-    where: {
-      post: {
-        id: req.params.postId,
-        published: true,
+  try {
+    const comment = await prisma.comment.findUniqueOrThrow({
+      where: {
+        id: req.params.commentId,
       },
-      id: req.params.commentId,
-      commenterId: req.user.id,
-    },
-  });
-  res.json({ message: 'comment deleted' });
+    });
+
+    if (comment.commenterId !== req.user.id) {
+      res.status(403).json({ message: "Cannot delete another user's comment" });
+    }
+
+    await prisma.comment.delete({
+      where: {
+        post: {
+          id: req.params.postId,
+          published: true,
+        },
+        id: req.params.commentId,
+        commenterId: req.user.id,
+      },
+    });
+    res.sendStatus(204);
+  } catch (e) {
+    if (
+      e instanceof Prisma.PrismaClientKnownRequestError &&
+      e.code === 'P2025'
+    ) {
+      res.status(404).json({ message: 'Comment not found' });
+    }
+  }
 };
 
 export default {

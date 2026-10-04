@@ -14,16 +14,17 @@ import { Button } from '@/components/ui/button';
 import api from '@/utils/api';
 import { LOGIN_ENDPOINT } from '@/utils/endpoints';
 import { useAuth } from '@/contexts/AuthContext';
+import _ from 'lodash';
 
 const Login = () => {
-  const { accessToken, setAccessToken, setUser } = useAuth();
+  const { user, setUser, setAccessToken } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (accessToken) {
+    if (!_.isEmpty(user)) {
       navigate('/');
     }
-  }, [accessToken, navigate]);
+  }, [user, navigate]);
 
   const handleLogin = async (formData) => {
     const body = {
@@ -36,6 +37,7 @@ const Login = () => {
         withCredentials: true,
       });
       setAccessToken(data.accessToken);
+      // setAxiosToken(data.accessToken);
       setUser(data.user);
       navigate('/');
     } catch (error) {

@@ -3,9 +3,10 @@ import { Outlet, Link } from 'react-router';
 import { useAuth } from '@/contexts/AuthContext';
 import api from '@/utils/api';
 import { LOGOUT_ENDPOINT } from '@/utils/endpoints';
+import _ from 'lodash';
 
 const RootLayout = () => {
-  const { accessToken, setAccessToken, setUser } = useAuth();
+  const { setAccessToken, user, setUser } = useAuth();
 
   const handleSignOut = async () => {
     try {
@@ -27,7 +28,7 @@ const RootLayout = () => {
           <Button variant='ghost'>Danny&apos;s Blog</Button>
         </Link>
         <div className='flex gap-2'>
-          {accessToken ? (
+          {!_.isEmpty(user) ? (
             <Button variant='outline' onClick={handleSignOut}>
               Sign Out
             </Button>
