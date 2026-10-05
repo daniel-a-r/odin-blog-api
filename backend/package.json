@@ -12,7 +12,7 @@
     "lint": "eslint .",
     "format": "prettier --write",
     "serve": "dotenvx run -f .env.dev --verbose -- nodemon app.js",
-    "serve:prod": "dotenvx run -f .env.prod --verbose -- app.js",
+    "serve:prod": "dotenvx run -f .env.prod --verbose -- node app.js",
     "encrypt:dev": "dotenvx encrypt -f .env.dev",
     "decrypt:dev": "dotenvx decrypt -f .env.dev",
     "encrypt:prod": "dotenvx encrypt -f .env.prod",
