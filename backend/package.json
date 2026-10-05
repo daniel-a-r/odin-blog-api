@@ -12,9 +12,13 @@
     "lint": "eslint .",
     "format": "prettier --write",
     "serve": "dotenvx run -f .env.dev --verbose -- nodemon app.js",
-    "encrypt-dev": "dotenvx encrypt -f .env.dev",
-    "decrypt-dev": "dotenvx decrypt -f .env.dev",
-    "migrate": "dotenvx run -f .env.dev -- npx prisma migrate dev --name"
+    "serve:prod": "dotenvx run -f .env.prod --verbose -- nodemon app.js",
+    "encrypt:dev": "dotenvx encrypt -f .env.dev",
+    "decrypt:dev": "dotenvx decrypt -f .env.dev",
+    "encrypt:prod": "dotenvx encrypt -f .env.prod",
+    "decrypt:prod": "dotenvx decrypt -f .env.prod",
+    "migrate": "dotenvx run -f .env.dev -- npx prisma migrate dev --name",
+    "migrate:deploy": "npx dotenvx run -f .env.prod -- npx prisma migrate deploy"
   },
   "dependencies": {
     "@dotenvx/dotenvx": "^1.43.0",
