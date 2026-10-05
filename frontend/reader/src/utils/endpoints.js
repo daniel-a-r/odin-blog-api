@@ -1,6 +1,6 @@
 export const baseURL = import.meta.env.DEV
   ? 'http://localhost:3000/api/v1'
-  : 'https://odin-blog-api-backend-jc9y.onrender.com';
+  : 'https://odin-blog-api-backend-jc9y.onrender.com/api/v1';
 
 export const LOGIN_ENDPOINT = '/auth/login/';
 export const SIGN_UP_ENDPOINT = '/auth/sign-up/';
