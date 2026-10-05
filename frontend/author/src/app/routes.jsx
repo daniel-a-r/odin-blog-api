@@ -25,6 +25,7 @@ const routes = [
     path: '/dashboard/:postId',
     Component: PostEditor,
     loader: postEditorLoader,
+    ErrorBoundary: ErrorRedirect,
   },
   {
     path: '/dashboard/create',

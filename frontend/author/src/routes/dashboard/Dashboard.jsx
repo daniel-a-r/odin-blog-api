@@ -1,17 +1,20 @@
 import styles from './Dashboard.module.css';
 import { useLoaderData, useNavigate, Link } from 'react-router';
-import axios from '@/utils/axios';
+import api, { setAccessToken } from '@/utils/axios';
 import { LOGOUT_ENDPOINT, formatDate } from '@/utils/utils';
+import { useAuth } from '@/app/AuthContext';
 
 const Dashboard = () => {
   const { data } = useLoaderData();
   const navigate = useNavigate();
+  const { user, setUser } = useAuth();
 
   const handleLogout = async () => {
-    localStorage.removeItem('accessToken');
-    await axios.get(LOGOUT_ENDPOINT, {
+    await api.get(LOGOUT_ENDPOINT, {
       withCredentials: true,
     });
+    setAccessToken('');
+    setUser({});
     return navigate('/');
   };
 
@@ -23,7 +26,7 @@ const Dashboard = () => {
           <Link to={`/dashboard/create`} className={styles.linkButton}>
             Create Post
           </Link>
-          <button onClick={handleLogout}>Logout</button>
+          <button onClick={() => handleLogout()}>Logout</button>
         </div>
       </header>
       <ul className={styles.ul}>

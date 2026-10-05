@@ -3,11 +3,15 @@ import { Link, useNavigate } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { POST_ENDPOINT } from '@/utils/utils';
-import { authInterceptor } from '@/utils/axios';
+import api from '@/utils/axios';
 import PostForm from '@/components/PostForm';
+import { useAuth } from '@/app/AuthContext';
+import _ from 'lodash';
+import { useEffect } from 'react';
 
 const PostCreator = () => {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   const createPost = async (formData) => {
     const requestData = {
@@ -18,12 +22,18 @@ const PostCreator = () => {
 
     try {
       const path = `${POST_ENDPOINT}`;
-      await authInterceptor.post(path, requestData);
+      await api.post(path, requestData);
       return navigate('/dashboard');
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (_.isEmpty(user)) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   return (
     <>

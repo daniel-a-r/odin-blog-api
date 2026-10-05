@@ -1,59 +1,113 @@
+// import axios from 'axios';
+// import { baseURL } from '@/utils/utils';
+
+// const instance = axios.create({
+//   baseURL: baseURL,
+// });
+
+// const authInterceptor = axios.create({
+//   baseURL: baseURL,
+// });
+
+// authInterceptor.interceptors.request.use(
+//   (config) => {
+//     const accessToken = localStorage.getItem('accessToken');
+
+//     if (accessToken) {
+//       config.headers.Authorization = `Bearer ${accessToken}`;
+//     }
+
+//     return config;
+//   },
+//   (error) => Promise.reject(error),
+// );
+
+// authInterceptor.interceptors.response.use(
+//   (config) => {
+//     return config;
+//   },
+//   async (error) => {
+//     try {
+//       const originalConfig = error.config;
+
+//       if (error.response?.status === 401 && !originalConfig._retry) {
+//         originalConfig._retry = true;
+
+//         const response = await axios.get(`${baseURL}/auth/refresh`, {
+//           withCredentials: true,
+//         });
+
+//         const { accessToken } = response.data;
+
+//         localStorage.setItem('accessToken', accessToken);
+//         originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+
+//         console.log('retrying request with refresh token');
+
+//         return authInterceptor(originalConfig);
+//       }
+//     } catch (error) {
+//       console.error(error);
+//       localStorage.removeItem('accessToken');
+//       return Promise.reject(error);
+//     }
+//     return Promise.reject(error);
+//   },
+// );
+
+// export { authInterceptor };
+// export default instance;
+
 import axios from 'axios';
-import { baseURL } from '@/utils/utils';
+import { baseURL, REFRESH_ENDPOINT } from '@/utils/utils';
 
-const instance = axios.create({
+let accessToken = '';
+const setAccessToken = (newToken) => {
+  accessToken = newToken;
+};
+
+const api = axios.create({
   baseURL: baseURL,
 });
 
-const authInterceptor = axios.create({
-  baseURL: baseURL,
+api.interceptors.request.use((config) => {
+  if (accessToken) {
+    config.headers['Authorization'] = `Bearer ${accessToken}`;
+  }
+
+  return config;
 });
 
-authInterceptor.interceptors.request.use(
-  (config) => {
-    const accessToken = localStorage.getItem('accessToken');
-
-    if (accessToken) {
-      config.headers.Authorization = `Bearer ${accessToken}`;
-    }
-
-    return config;
-  },
-  (error) => Promise.reject(error),
-);
-
-authInterceptor.interceptors.response.use(
-  (config) => {
-    return config;
-  },
+api.interceptors.response.use(
+  (response) => response,
   async (error) => {
-    try {
-      const originalConfig = error.config;
+    const originalRequest = error.config;
+    const regex = /^\/auth\//;
+    const isAuthEndpoint = originalRequest.url.match(regex);
 
-      if (error.response?.status === 401 && !originalConfig._retry) {
-        originalConfig._retry = true;
+    if (error.status === 401 && !isAuthEndpoint && !originalRequest._retry) {
+      originalRequest._retry = true;
 
-        const response = await axios.get(`${baseURL}/auth/refresh`, {
+      try {
+        const { data } = await api.get(`${REFRESH_ENDPOINT}`, {
           withCredentials: true,
         });
 
-        const { accessToken } = response.data;
+        const newToken = data.accessToken;
+        accessToken = newToken;
 
-        localStorage.setItem('accessToken', accessToken);
-        originalConfig.headers.Authorization = `Bearer ${accessToken}`;
+        console.log('Reauthenticating...');
 
-        console.log('retrying request with refresh token');
-
-        return authInterceptor(originalConfig);
+        return api(originalRequest);
+      } catch (refreshError) {
+        console.error('Refresh token request failed:', refreshError);
+        return Promise.reject(refreshError);
       }
-    } catch (error) {
-      console.error(error);
-      localStorage.removeItem('accessToken');
-      return Promise.reject(error);
     }
+
     return Promise.reject(error);
   },
 );
 
-export { authInterceptor };
-export default instance;
+export default api;
+export { setAccessToken };

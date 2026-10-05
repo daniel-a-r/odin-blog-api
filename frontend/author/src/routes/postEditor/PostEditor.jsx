@@ -1,12 +1,14 @@
 import styles from './PostEditor.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLoaderData, Link, useNavigate } from 'react-router';
 import Icon from '@mdi/react';
 import { mdiArrowLeft } from '@mdi/js';
 import { POST_ENDPOINT } from '@/utils/utils';
-import { authInterceptor } from '@/utils/axios';
+import api from '@/utils/axios';
 import PostForm from '@/components/PostForm';
 import ConfirmDeleteModal from '@/components/confirmDeleteModal/ConfirmDeleteModal';
+import { useAuth } from '@/app/AuthContext';
+import _ from 'lodash';
 
 const PostEditor = () => {
   const data = useLoaderData();
@@ -17,12 +19,13 @@ const PostEditor = () => {
   const [updatedAt, setUpdatedAt] = useState(data.updatedAt);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const states = { title, body, isPublished, updatedAt };
+  const { user } = useAuth();
 
   const handleCancel = () => setIsModalOpen(false);
   const handleConfirm = async () => {
     try {
       const path = `${POST_ENDPOINT}${data.id}`;
-      await authInterceptor.delete(path);
+      await api.delete(path);
       navigate('/dashboard');
     } catch (error) {
       console.error(error);
@@ -40,7 +43,7 @@ const PostEditor = () => {
 
     try {
       const path = `${POST_ENDPOINT}${data.id}`;
-      const response = await authInterceptor.put(path, requestData);
+      const response = await api.put(path, requestData);
       const { post } = response.data;
       setTitle(post.title);
       setBody(post.body);
@@ -50,6 +53,12 @@ const PostEditor = () => {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    if (_.isEmpty(user)) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   return (
     <>

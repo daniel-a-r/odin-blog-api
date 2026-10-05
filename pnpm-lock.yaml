@@ -361,6 +361,9 @@ importers:
       date-fns:
         specifier: ^4.1.0
         version: 4.4.0
+      lodash:
+        specifier: ^4.18.1
+        version: 4.18.1
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1

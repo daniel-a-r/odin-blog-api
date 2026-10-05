@@ -1,13 +1,21 @@
 import { useNavigate, useLoaderData } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './Home.module.css';
-import axios from '@/utils/axios';
-import { LOGIN_ENDPOINT } from '@/utils/utils.js';
+import api, { setAccessToken } from '@/utils/axios';
+import { LOGIN_ENDPOINT } from '@/utils/utils';
+import { useAuth } from '@/app/AuthContext';
+import _ from 'lodash';
 
 const Home = () => {
   const [invalidLogin, setInvalidLogin] = useState(false);
   const navigate = useNavigate();
-  useLoaderData();
+  const { user, setUser } = useAuth();
+
+  useEffect(() => {
+    if (!_.isEmpty(user)) {
+      navigate('/dashboard');
+    }
+  }, [user, navigate]);
 
   const login = async (formData) => {
     const body = {
@@ -17,10 +25,11 @@ const Home = () => {
     };
 
     try {
-      const { data } = await axios.post(LOGIN_ENDPOINT, body, {
+      const { data } = await api.post(LOGIN_ENDPOINT, body, {
         withCredentials: true,
       });
-      localStorage.setItem('accessToken', data.accessToken);
+      setAccessToken(data.accessToken);
+      setUser(data.user);
       navigate('/dashboard');
     } catch (ignoreError) {
       setInvalidLogin(true);
