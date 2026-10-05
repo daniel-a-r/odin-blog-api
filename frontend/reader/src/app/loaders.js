@@ -1,4 +1,4 @@
-import api from '@/utils/api';
+import api from '@/utils/apiClient';
 import { READER_POST_ENDPOINT } from '@/utils/endpoints';
 
 const loadAllPosts = async () => {

@@ -10,7 +10,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
 import { READER_POST_ENDPOINT } from '@/utils/endpoints';
-import api from '@/utils/api';
+import api from '@/utils/apiClient';
 import { useParams } from 'react-router';
 import _ from 'lodash';
 import PropTypes from 'prop-types';

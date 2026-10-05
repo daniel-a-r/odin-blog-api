@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Card,
   CardAction,
@@ -10,21 +12,20 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { useNavigate } from 'react-router';
-import api from '@/utils/api';
-import { SIGN_UP_ENDPOINT } from '@/utils/endpoints';
 import { useAuth } from '@/contexts/AuthContext';
+import { SIGN_UP_ENDPOINT } from '@/utils/endpoints';
+import api, { setAccessToken } from '@/utils/apiClient';
 
 const SignUp = () => {
   const [errorMessages, setErrorMessages] = useState([]);
-  const { accessToken, setAccessToken } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (accessToken) {
+    if (!_.isEmpty(user)) {
       navigate('/');
     }
-  }, [accessToken, navigate]);
+  }, [user, navigate]);
 
   const handleSignUp = async (formData) => {
     const body = {
@@ -38,6 +39,7 @@ const SignUp = () => {
         withCredentials: true,
       });
       setAccessToken(data.accessToken);
+      setUser({ id: data.user.id, username: data.user.username });
       navigate('/');
     } catch (error) {
       if ((error.status = 400 && error.response?.data.validationErrors)) {

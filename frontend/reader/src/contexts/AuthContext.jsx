@@ -1,32 +1,17 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import propTypes from 'prop-types';
-import api from '@/utils/api';
-import { REFRESH_ENDPOINT, USER_ENDPOINT, baseURL } from '@/utils/endpoints';
-import { configureAuth } from '@/utils/api';
-import axios from 'axios';
+import { REFRESH_ENDPOINT, USER_ENDPOINT } from '@/utils/endpoints';
+import api, { setAccessToken } from '@/utils/apiClient';
 
 const initialState = {
-  accessToken: '',
-  setAccessToken: () => null,
-  user: {
-    username: '',
-    id: '',
-  },
+  user: {},
   setUser: () => null,
 };
 
 const AuthContext = createContext(initialState);
 
 const AuthProvider = ({ children }) => {
-  const [accessToken, setAccessToken] = useState('');
   const [user, setUser] = useState({});
-
-  useEffect(() => {
-    configureAuth({
-      getToken: () => accessToken,
-      setToken: setAccessToken,
-    });
-  }, [accessToken]);
 
   useEffect(() => {
     const initAccessToken = async () => {
@@ -37,7 +22,7 @@ const AuthProvider = ({ children }) => {
         const { accessToken } = refreshRespone.data;
         setAccessToken(accessToken);
 
-        const userResponse = await axios.get(`${baseURL}${USER_ENDPOINT}`, {
+        const userResponse = await api.get(`${USER_ENDPOINT}`, {
           headers: {
             Authorization: `Bearer ${accessToken}`,
           },
@@ -52,11 +37,7 @@ const AuthProvider = ({ children }) => {
     initAccessToken();
   }, []);
 
-  return (
-    <AuthContext value={{ accessToken, setAccessToken, user, setUser }}>
-      {children}
-    </AuthContext>
-  );
+  return <AuthContext value={{ user, setUser }}>{children}</AuthContext>;
 };
 
 AuthProvider.propTypes = {

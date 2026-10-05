@@ -1,12 +1,12 @@
-import { Button } from '@/components/ui/button';
-import { Outlet, Link } from 'react-router';
-import { useAuth } from '@/contexts/AuthContext';
-import api from '@/utils/api';
-import { LOGOUT_ENDPOINT } from '@/utils/endpoints';
 import _ from 'lodash';
+import { Outlet, Link } from 'react-router';
+import { Button } from '@/components/ui/button';
+import { useAuth } from '@/contexts/AuthContext';
+import { LOGOUT_ENDPOINT } from '@/utils/endpoints';
+import api, { setAccessToken } from '@/utils/apiClient';
 
 const RootLayout = () => {
-  const { setAccessToken, user, setUser } = useAuth();
+  const { user, setUser } = useAuth();
 
   const handleSignOut = async () => {
     try {

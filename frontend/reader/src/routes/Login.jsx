@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import {
@@ -11,13 +12,12 @@ import {
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import api from '@/utils/api';
-import { LOGIN_ENDPOINT } from '@/utils/endpoints';
 import { useAuth } from '@/contexts/AuthContext';
-import _ from 'lodash';
+import { LOGIN_ENDPOINT } from '@/utils/endpoints';
+import api, { setAccessToken } from '@/utils/apiClient';
 
 const Login = () => {
-  const { user, setUser, setAccessToken } = useAuth();
+  const { user, setUser } = useAuth();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -37,7 +37,6 @@ const Login = () => {
         withCredentials: true,
       });
       setAccessToken(data.accessToken);
-      // setAxiosToken(data.accessToken);
       setUser(data.user);
       navigate('/');
     } catch (error) {
