@@ -17,6 +17,7 @@ app.use(
     origin: [
       'http://localhost:5174',
       'https://odin-blog-api-author.daniel-a-r.workers.dev',
+      'https://odin-blog-api-reader.daniel-a-r.workers.dev',
     ],
     credentials: true,
   }),
