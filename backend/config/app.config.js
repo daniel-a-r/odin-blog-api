@@ -12,7 +12,15 @@ const accessLogStream = createWriteStream(
   { flags: 'a' },
 );
 
-app.use(cors({ origin: ['http://localhost:5174'], credentials: true }));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:5174',
+      'https://odin-blog-api-author.daniel-a-r.workers.dev',
+    ],
+    credentials: true,
+  }),
+);
 app.use(helemt());
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));

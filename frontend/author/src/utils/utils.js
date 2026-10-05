@@ -2,7 +2,7 @@ import { format } from 'date-fns';
 
 export const baseURL = import.meta.env.DEV
   ? 'http://localhost:3000/api/v1'
-  : 'tbd';
+  : 'https://odin-blog-api-backend-jc9y.onrender.com/api/v1';
 
 export const LOGIN_ENDPOINT = '/auth/login';
 export const POST_ENDPOINT = '/author/post/';
